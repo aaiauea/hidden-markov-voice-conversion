@@ -14,9 +14,9 @@ stream rather than left to callers:
 
 Unvoiced ``log_f0`` values stay NaN after normalisation.  Dimensions with
 (near) zero variance are scaled by ``std_floor`` instead of dividing by zero.
-Statistics serialise to JSON (no pickle) together with the analysis
-configuration they were computed with, so they can be checked for
-compatibility.
+Statistics serialise to JSON (no pickle) together with the requested analysis
+configuration and resolved feature geometry, so incompatible sample rates or
+frequency grids cannot be mixed silently.
 """
 
 from __future__ import annotations
@@ -31,6 +31,19 @@ import numpy as np
 DEFAULT_STREAMS = ("mcep", "continuous_log_f0", "energy_db", "band_aperiodicity",
                    "periodicity")
 VOICED_STREAMS = ("log_f0", "continuous_log_f0")
+
+
+def _resolved_geometry(features) -> dict:
+    """Numerical geometry that must match before corpus statistics can be pooled."""
+    return {
+        "sample_rate": int(features.sample_rate),
+        "hop_length": int(features.hop_length),
+        "frame_length": int(features.frame_length),
+        "fft_size": int(features.fft_size),
+        "mcep_alpha": float(features.mcep_alpha),
+        "mcep_order": int(features.mcep_order),
+        "aperiodicity_edges": np.asarray(features.aperiodicity_edges, dtype=np.float64).tolist(),
+    }
 
 
 def _as_rows(values) -> np.ndarray:
@@ -86,6 +99,7 @@ class FeatureNormalizer:
         self.std_floor = float(std_floor)
         self.moments: Dict[str, RunningMoments] = {}
         self.config: Optional[dict] = None
+        self.geometry: Optional[dict] = None
 
     # -- fitting ------------------------------------------------------------
 
@@ -106,6 +120,11 @@ class FeatureNormalizer:
             self.config = config
         elif config != self.config:
             raise ValueError("features were extracted with a different AnalysisConfig")
+        geometry = _resolved_geometry(features)
+        if self.geometry is None:
+            self.geometry = geometry
+        elif geometry != self.geometry:
+            raise ValueError("features have incompatible resolved analysis geometry")
         for name in self.streams:
             values = self._frames(features, name)
             current = self.moments.get(name, RunningMoments.empty(values.shape[1]))
@@ -149,6 +168,8 @@ class FeatureNormalizer:
         """Normalised copies of ``streams`` (default: every fitted stream)."""
         if self.config is not None and features.config != self.config:
             raise ValueError("features were extracted with a different AnalysisConfig")
+        if self.geometry is not None and _resolved_geometry(features) != self.geometry:
+            raise ValueError("features have incompatible resolved analysis geometry")
         names = self.streams if streams is None else tuple(streams)
         return {name: self.normalize(name, features.stream(name)) for name in names}
 
@@ -157,11 +178,12 @@ class FeatureNormalizer:
     def to_dict(self) -> dict:
         return {
             "format": "hmvc.features.normalizer",
-            "version": 1,
+            "version": 2,
             "streams": list(self.streams),
             "exclude_silence": self.exclude_silence,
             "std_floor": self.std_floor,
             "config": self.config,
+            "geometry": self.geometry,
             "moments": {name: {"count": m.count, "mean": m.mean.tolist(), "m2": m.m2.tolist()}
                         for name, m in self.moments.items()},
         }
@@ -170,8 +192,11 @@ class FeatureNormalizer:
     def from_dict(cls, data: dict) -> "FeatureNormalizer":
         if data.get("format") != "hmvc.features.normalizer":
             raise ValueError("not an HMVC feature-normaliser file")
+        if data.get("version") != 2:
+            raise ValueError(f"unsupported feature-normaliser version {data.get('version')}")
         obj = cls(data["streams"], data["exclude_silence"], data["std_floor"])
         obj.config = data.get("config")
+        obj.geometry = data.get("geometry")
         obj.moments = {name: RunningMoments(int(m["count"]), np.asarray(m["mean"], float),
                                             np.asarray(m["m2"], float))
                        for name, m in data["moments"].items()}

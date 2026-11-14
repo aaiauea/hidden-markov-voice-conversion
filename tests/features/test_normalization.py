@@ -67,6 +67,7 @@ def test_save_load_and_config_guard(tmp_path, corpus):
     path = tmp_path / "stats.json"
     norm.save(path)
     loaded = FeatureNormalizer.load(path)
+    assert loaded.geometry == norm.geometry
     for name in norm.streams:
         np.testing.assert_allclose(loaded.mean(name), norm.mean(name), rtol=1e-15)
         np.testing.assert_allclose(loaded.std(name), norm.std(name), rtol=1e-15)
@@ -79,6 +80,24 @@ def test_save_load_and_config_guard(tmp_path, corpus):
         FeatureNormalizer.from_dict({"format": "nope"})
     with pytest.raises(KeyError):
         FeatureNormalizer().mean("mcep")
+
+
+
+def test_normalizer_rejects_mixed_native_sample_rates():
+    # With sample_rate=None the requested config is identical, and both rates
+    # use 25 MCEP coefficients, but their resolved warping and band grids differ.
+    config = AnalysisConfig()
+    at_16k = extract(np.zeros(1600), 16000, config)
+    at_11025 = extract(np.zeros(1103), 11025, config)
+    assert at_16k.config == at_11025.config
+    assert at_16k.mcep.shape[1] == at_11025.mcep.shape[1]
+    assert at_16k.mcep_alpha != at_11025.mcep_alpha
+
+    normalizer = FeatureNormalizer(streams=("mcep",)).partial_fit(at_16k)
+    with pytest.raises(ValueError, match="resolved analysis geometry"):
+        normalizer.partial_fit(at_11025)
+    with pytest.raises(ValueError, match="resolved analysis geometry"):
+        normalizer.transform(at_11025)
 
 
 def test_utterance_normalisation(corpus):
