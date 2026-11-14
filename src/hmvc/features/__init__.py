@@ -9,7 +9,7 @@ Quick start::
     feats.mcep            # (T, M+1) mel-cepstrum (primary spectral representation)
     feats.f0, feats.voiced, feats.periodicity
     feats.energy_db, feats.band_aperiodicity, feats.spectral["centroid"]
-    feats.envelope()      # (T, N/2+1) power envelope (kept or rebuilt from MCEP)
+    feats.envelope()      # (T, N/2+1) power envelope (kept, or approximated from MCEP)
 
 Modules
 -------

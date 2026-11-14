@@ -23,6 +23,14 @@ order M is the least-squares approximation of the log spectrum on the warped
 (mel-like) axis.  (1) is also exactly the magnitude response of the MLSA
 filter, so the coefficients are directly usable for MLSA synthesis.
 
+Finite-order MCEP is therefore a reconstructible, compact approximation of the
+envelope, not a lossless encoding: ``mc2sp(sp2mc(P, M, alpha), alpha, n)``
+returns the order-M (smoothed) approximation of ``P``.  It reproduces ``P``
+(to numerical precision) only when the warped cepstrum of ``P`` vanishes above
+order M; otherwise the error falls as M grows (about 2.2 dB RMS log-spectral
+distance at M = 24 on 16 kHz speech envelopes, see docs/feature-extraction.md
+section 4.3).
+
 Implementation
 --------------
 SPTK's ``freqt`` recursion is linear in its input, so the transform is a fixed
@@ -210,6 +218,8 @@ def sp2mc(power: np.ndarray, order: int, alpha: float, floor: float = 1e-12) -> 
     """Power spectral envelope ``(T, N//2+1)`` -> mel-cepstrum ``(T, order+1)``.
 
     Numerically equivalent to ``pysptk.sp2mc`` (see the module docstring).
+    The result is a truncated, order-``order`` approximation of the envelope;
+    :func:`mc2sp` rebuilds that approximation, not the input itself.
     """
     return freqt(real_cepstrum(power, floor=floor), order, alpha)
 
@@ -229,8 +239,9 @@ def mc2sp(mcep: np.ndarray, alpha: float, fft_size: int,
 
     Evaluates the truncated series exactly (pysptk's ``mc2sp`` first warps back
     to ``fft_size/2`` linear coefficients, which differs only by that
-    truncation).  ``log_clip`` bounds the log power so malformed input cannot
-    overflow.
+    truncation).  For coefficients from :func:`sp2mc` the result is the
+    order-M approximation of the analysed envelope, not the envelope itself.
+    ``log_clip`` bounds the log power so malformed input cannot overflow.
     """
     mcep = np.atleast_2d(np.asarray(mcep, dtype=np.float64))
     basis = _mc2sp_basis(mcep.shape[1] - 1, int(fft_size) // 2 + 1, round(float(alpha), 12))

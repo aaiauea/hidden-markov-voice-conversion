@@ -34,8 +34,12 @@ and limitations. Attribution: [third-party notices](THIRD_PARTY_NOTICES.md),
 `hmvc.features` analyses WAV files or arrays at any common sample rate into
 separate, frame-synchronous streams:
 
-- an invertible **mel-cepstrum** of a CheapTrick spectral envelope (the
-  primary representation);
+- a reconstructible, compact **mel-cepstral** representation of a CheapTrick
+  spectral envelope (the primary representation). Finite-order MCEP is an
+  approximation of the original envelope, not a lossless encoding: at the
+  16 kHz default (order 24) the envelope rebuilt with `mc2sp` differs from the
+  original by about 2.2 dB RMS log-spectral distance on speech. Use
+  `keep_envelope=True` to keep the full envelope as well;
 - **F0**, **voicing** and **periodicity**;
 - frame **energy**;
 - **band aperiodicity**;

@@ -152,7 +152,12 @@ class AcousticFeatures:
         return np.concatenate(parts, axis=1)
 
     def envelope(self) -> np.ndarray:
-        """Power envelope: the kept full-resolution one, or rebuilt from MCEP."""
+        """Power envelope: the kept full-resolution one, or rebuilt from MCEP.
+
+        Without ``keep_envelope`` the envelope is rebuilt with :func:`mc2sp`,
+        so it is the finite-order MCEP approximation of the analysed envelope
+        (smoothed, not identical).
+        """
         if self.spectral_envelope is not None:
             return self.spectral_envelope
         return mc2sp(self.mcep, self.mcep_alpha, self.fft_size)

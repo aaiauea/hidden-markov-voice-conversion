@@ -20,7 +20,7 @@ Evidence files (regenerable):
 
 | Concern | Decision | Main reason (evidence in §4–§6) |
 |---|---|---|
-| Primary spectral representation | **All-pass mel-cepstrum (MCEP)** of a **CheapTrick** envelope; order 24 / 34 / 39 for ≤16 / ≤24 / >24 kHz; SPTK alpha (0.41 at 16 kHz) | Invertible (`mc2sp`), compact, decorrelated, F0-independent, perceptually weighted. It is the standard input of classical VC mapping (GMM/DNN/frame-wise MCD). |
+| Primary spectral representation | **All-pass mel-cepstrum (MCEP)** of a **CheapTrick** envelope; order 24 / 34 / 39 for ≤16 / ≤24 / >24 kHz; SPTK alpha (0.41 at 16 kHz) | Reconstructible (`mc2sp`) and compact, as a finite-order approximation of the envelope rather than a lossless encoding (§4.3). Also decorrelated, F0-independent and perceptually weighted. It is the standard input of classical VC mapping (GMM/DNN/frame-wise MCD). |
 | Envelope estimator | CheapTrick (independent implementation, matches WORLD to <1e-5 dB) | Most accurate and most F0-invariant of the five estimators tested. |
 | Lossless option | `keep_envelope=True` stores the full linear-frequency power envelope | MCEP is a smoothing (2.2 dB round-trip LSD at order 24 on speech). The envelope is the loss-free source. |
 | F0 | YIN + Viterbi continuity tracking + short-window refinement + hysteresis voicing | 0.2–2.1 cents median on synthetic vibrato, no gross errors. Agrees with WORLD on speech as well as WORLD's two estimators agree with each other. |
@@ -65,7 +65,7 @@ are measured.
 
 | HMS component | Finding | Decision |
 |---|---|---|
-| `core/features.power_to_mcep` / `mcep_to_power` | Mel-filterbank + DCT "MCEP", not an all-pass cepstrum. It is not exactly invertible, and its warping factor differs from SPTK (0.459 vs 0.41 at 16 kHz). Its round trip is worse than true MCEP at every dimension (2.61 vs 2.18 dB at D=25 on speech). | **Not reused** for the primary representation. Its output is still reachable via the engine. |
+| `core/features.power_to_mcep` / `mcep_to_power` | Mel-filterbank + DCT "MCEP", not an all-pass cepstrum, and its warping factor differs from SPTK (0.459 vs 0.41 at 16 kHz). Like any finite-order cepstrum it only approximates the envelope, but its round-trip error is larger than all-pass MCEP's at every dimension tested (2.61 vs 2.18 dB at D=25 on speech). | **Not reused** for the primary representation. Its output is still reachable via the engine. |
 | Builtin vocoder `analyze()` envelope (fixed lifter, order 40) | 1.7–19.5 dB envelope error vs truth and strongly F0-dependent (shape std 7–8 dB across F0) | **Rejected** as an envelope estimator. |
 | `core/dsp.autocorrelation_f0` | Integer-lag only (110 Hz → 111.11, 440 → 444.44). Gross-error rate 9–14% on vibrato vowels, 24 false-voiced frames on the mixed signal. | **Replaced** by YIN with tracking and refinement. |
 | `data/wavio` | Misreads IEEE-float WAV | **Own reader** (`audio.read_wav`): PCM 8/16/24/32, float32/64, EXTENSIBLE, truncated files. |
@@ -74,7 +74,9 @@ are measured.
 
 HMS's synthesis representation was designed for HMM synthesis from scores,
 where smoothing is acceptable. For audio-to-audio VC the analysis has to keep
-speaker detail, so a separate, invertible representation was built.
+speaker detail, so a separate representation was built. It is reconstructible,
+with an approximation error that is measured (§4.3) and controllable through the
+order.
 
 ## 4. Representation study
 
@@ -104,18 +106,22 @@ default.
 
 ### 4.2 Candidate representations of the envelope
 
-| Candidate | Invertible | Dim. | Decorrelated¹ | F0-independent | Verdict |
+| Candidate | Reconstruction² | Dim. | Decorrelated¹ | F0-independent | Verdict |
 |---|---|---|---|---|---|
-| Log-magnitude spectrum (513 bins) | yes | 513 | no (0.695) | no (harmonics) | **Rejected** as a primary feature: high-dimensional, correlated, and it carries harmonic structure, i.e. F0. Available as `framing.log_magnitude`. |
-| Full spectral envelope (`keep_envelope`) | yes (it *is* the source) | 513 | no | yes | **Kept as an optional stream.** It is the loss-free reference, but too large and correlated for a mapping. |
-| Real cepstrum of the STFT | yes | N | partly | **no** | **Rejected**: low quefrencies mix source and filter unless liftered at a pitch-dependent order (= the lifter estimator above). |
-| Liftered cepstrum (linear frequency, α=0) | yes | D | yes | yes, from the envelope | **Configurable** (`mcep_alpha=0`). Best for uniform-frequency fidelity (see 4.3). |
-| SPTK UELS `mcep` of windowed frames | yes | D | yes | **no** | **Rejected**: the MCD between the same vowel at 100 Hz and 300 Hz is 18.5–22.3 dB (envelope-based: 2.7–3.0 dB). The MCD to the true envelope grows to 19–23 dB at 300 Hz, because it fits harmonics. |
-| HMS mel-filterbank DCT | no (approx.) | D | yes (0.134) | yes, from the envelope | **Rejected**: worse round trip than MCEP at every D, and not SPTK-compatible. |
-| **All-pass MCEP of the CheapTrick envelope** | yes (`mc2sp`) | D | **yes (0.124)** | **yes** | **Selected** |
+| Log-magnitude spectrum (513 bins) | exact (magnitude only) | 513 | no (0.695) | no (harmonics) | **Rejected** as a primary feature: high-dimensional, correlated, and it carries harmonic structure, i.e. F0. Available as `framing.log_magnitude`. |
+| Full spectral envelope (`keep_envelope`) | exact (it *is* the source) | 513 | no | yes | **Kept as an optional stream.** It is the loss-free reference, but too large and correlated for a mapping. |
+| Real cepstrum of the STFT | exact at full length N | N | partly | **no** | **Rejected**: low quefrencies mix source and filter unless liftered at a pitch-dependent order (= the lifter estimator above). |
+| Liftered cepstrum (linear frequency, α=0) | approximate (truncated at D) | D | yes | yes, from the envelope | **Configurable** (`mcep_alpha=0`). Best for uniform-frequency fidelity (see 4.3). |
+| SPTK UELS `mcep` of windowed frames | approximate (truncated at D) | D | yes | **no** | **Rejected**: the MCD between the same vowel at 100 Hz and 300 Hz is 18.5–22.3 dB (envelope-based: 2.7–3.0 dB). The MCD to the true envelope grows to 19–23 dB at 300 Hz, because it fits harmonics. |
+| HMS mel-filterbank DCT | approximate (filterbank + truncation) | D | yes (0.134) | yes, from the envelope | **Rejected**: worse round trip than MCEP at every D, and not SPTK-compatible. |
+| **All-pass MCEP of the CheapTrick envelope** | approximate (truncated at D; rebuilt with `mc2sp`) | D | **yes (0.124)** | **yes** | **Selected** |
 
 ¹ Mean absolute off-diagonal correlation over speech frames (lower = more
 decorrelated), excluding c0.
+
+² Whether the original can be rebuilt from the stored values. "Approximate"
+means a finite-order (smoothed) approximation of the original envelope; its
+error is quantified in §4.3.
 
 ### 4.3 How much is lost, and where
 
@@ -350,7 +356,7 @@ the other heavy libraries.
 |---|---|
 | `test_config.py` | Defaults per rate (8–48 kHz), validation of every option, explicit lengths, JSON/dict round trip, immutability |
 | `test_audio.py` | WAV formats (PCM 8/16/24/32, float32/64, EXTENSIBLE, stereo, odd chunks, truncation, malformed files), clipping on write, resampler accuracy, aliasing and block invariance, input sanitising |
-| `test_dsp.py` | Frame grid and centring, windows, power-density scaling, cepstrum round trips, lifters, `freqt` matrix = recursion and inverse, sp2mc/mc2sp inversion, distortion measures, descriptors on sines, noise and silence, tilt, flux continuity |
+| `test_dsp.py` | Frame grid and centring, windows, power-density scaling, cepstrum round trips, lifters, `freqt` matrix = recursion, inverse warp via a high-order intermediate, sp2mc/mc2sp round trip on an envelope that is exactly representable at the analysis order, round-trip error decreasing with order, distortion measures, descriptors on sines, noise and silence, tilt, flux continuity |
 | `test_f0.py` | Pure sines (65–750 Hz), missing fundamental, 7 sample rates, vibrato reference signals, the refinement gain, silence, noise and fricatives unvoiced, quiet voicing, relative gate, tracking/hysteresis unit tests, block invariance, degenerate lengths, the dense tone sweep |
 | `test_envelope_aperiodicity.py` | CheapTrick vs the analytic envelope at 4 F0s × 2 vowels, F0 invariance, estimator ordering, block invariance, silence, true-envelope upper bound, aperiodicity calibration (10 cases), unvoiced = 1, neighbour/block invariance |
 | `test_extractor.py` | Stream layout, stacking, envelope rebuild, 8 rates, 14 frame/analysis configurations, resampling, 16 unusual inputs, determinism, block invariance, variable lengths, prefix consistency, save/load/validate, CLI, engine bridge + builtin/MLSA vocoder loop-back |

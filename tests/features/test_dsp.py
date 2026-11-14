@@ -137,7 +137,7 @@ def test_freqt_matrix_equals_recursion(alpha):
 def test_freqt_identity_and_inverse():
     c = RNG.standard_normal((2, 25)) / np.arange(1, 26) ** 2
     np.testing.assert_allclose(C.freqt(c, 24, 0.0), c, atol=1e-15)
-    warped = C.freqt(c, 200, 0.41)                                  # high order: lossless
+    warped = C.freqt(c, 200, 0.41)        # order 200: truncation error below the tolerance
     np.testing.assert_allclose(C.freqt(warped, 24, -0.41), c, atol=1e-9)
     np.testing.assert_allclose(C.mc2c(C.freqt(c, 200, 0.41), 0.41, 25), c, atol=1e-9)
 
