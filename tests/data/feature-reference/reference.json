@@ -1,0 +1,459 @@
+{
+ "arrays": {
+  "freqt/alpha_+0.00": [
+   [
+    6,
+    31
+   ],
+   "float64"
+  ],
+  "freqt/alpha_+0.31": [
+   [
+    6,
+    31
+   ],
+   "float64"
+  ],
+  "freqt/alpha_+0.42": [
+   [
+    6,
+    31
+   ],
+   "float64"
+  ],
+  "freqt/alpha_+0.55": [
+   [
+    6,
+    31
+   ],
+   "float64"
+  ],
+  "freqt/alpha_-0.42": [
+   [
+    6,
+    31
+   ],
+   "float64"
+  ],
+  "freqt/input": [
+   [
+    6,
+    257
+   ],
+   "float64"
+  ],
+  "mcepalpha/rates": [
+   [
+    8
+   ],
+   "int64"
+  ],
+  "mcepalpha/values": [
+   [
+    8
+   ],
+   "float64"
+  ],
+  "mixed/cheaptrick_log_sp": [
+   [
+    113,
+    513
+   ],
+   "float32"
+  ],
+  "mixed/dio_f0": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/harvest_f0": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/librosa_bandwidth": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/librosa_centroid": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/librosa_flatness": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/librosa_rms": [
+   [
+    113
+   ],
+   "float32"
+  ],
+  "mixed/librosa_rolloff": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/librosa_yin": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/librosa_zcr": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/sptk_mcep": [
+   [
+    113,
+    25
+   ],
+   "float64"
+  ],
+  "mixed/true_f0": [
+   [
+    113
+   ],
+   "float64"
+  ],
+  "mixed/x": [
+   [
+    8960
+   ],
+   "float32"
+  ],
+  "vowel_22k/cheaptrick_log_sp": [
+   [
+    81,
+    1025
+   ],
+   "float32"
+  ],
+  "vowel_22k/dio_f0": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/harvest_f0": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/librosa_bandwidth": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/librosa_centroid": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/librosa_flatness": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/librosa_rms": [
+   [
+    81
+   ],
+   "float32"
+  ],
+  "vowel_22k/librosa_rolloff": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/librosa_yin": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/librosa_zcr": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/sptk_mcep": [
+   [
+    81,
+    35
+   ],
+   "float64"
+  ],
+  "vowel_22k/true_f0": [
+   [
+    81
+   ],
+   "float64"
+  ],
+  "vowel_22k/x": [
+   [
+    8820
+   ],
+   "float32"
+  ],
+  "vowel_high/cheaptrick_log_sp": [
+   [
+    101,
+    513
+   ],
+   "float32"
+  ],
+  "vowel_high/dio_f0": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/harvest_f0": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/librosa_bandwidth": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/librosa_centroid": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/librosa_flatness": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/librosa_rms": [
+   [
+    101
+   ],
+   "float32"
+  ],
+  "vowel_high/librosa_rolloff": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/librosa_yin": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/librosa_zcr": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/sptk_mcep": [
+   [
+    101,
+    25
+   ],
+   "float64"
+  ],
+  "vowel_high/true_f0": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_high/x": [
+   [
+    8000
+   ],
+   "float32"
+  ],
+  "vowel_low/cheaptrick_log_sp": [
+   [
+    101,
+    513
+   ],
+   "float32"
+  ],
+  "vowel_low/dio_f0": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/harvest_f0": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/librosa_bandwidth": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/librosa_centroid": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/librosa_flatness": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/librosa_log_stft": [
+   [
+    101,
+    513
+   ],
+   "float32"
+  ],
+  "vowel_low/librosa_rms": [
+   [
+    101
+   ],
+   "float32"
+  ],
+  "vowel_low/librosa_rolloff": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/librosa_yin": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/librosa_zcr": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/sptk_mc2sp_log": [
+   [
+    101,
+    513
+   ],
+   "float32"
+  ],
+  "vowel_low/sptk_mcep": [
+   [
+    101,
+    25
+   ],
+   "float64"
+  ],
+  "vowel_low/true_f0": [
+   [
+    101
+   ],
+   "float64"
+  ],
+  "vowel_low/x": [
+   [
+    8000
+   ],
+   "float32"
+  ]
+ },
+ "cases": {
+  "mixed": {
+   "fft_size": 1024,
+   "frame_length": 400,
+   "frames": 113,
+   "hop_length": 80,
+   "mcep_alpha": 0.41000000000000003,
+   "mcep_order": 24,
+   "sample_rate": 16000,
+   "samples": 8960
+  },
+  "vowel_22k": {
+   "fft_size": 2048,
+   "frame_length": 551,
+   "frames": 81,
+   "hop_length": 110,
+   "mcep_alpha": 0.455,
+   "mcep_order": 34,
+   "sample_rate": 22050,
+   "samples": 8820
+  },
+  "vowel_high": {
+   "fft_size": 1024,
+   "frame_length": 400,
+   "frames": 101,
+   "hop_length": 80,
+   "mcep_alpha": 0.41000000000000003,
+   "mcep_order": 24,
+   "sample_rate": 16000,
+   "samples": 8000
+  },
+  "vowel_low": {
+   "fft_size": 1024,
+   "frame_length": 400,
+   "frames": 101,
+   "hop_length": 80,
+   "mcep_alpha": 0.41000000000000003,
+   "mcep_order": 24,
+   "sample_rate": 16000,
+   "samples": 8000
+  }
+ },
+ "generated_utc": "2026-11-14T13:48:45Z",
+ "generator": "tools/generate_feature_reference.py",
+ "hmvc_imported": false,
+ "npz_sha256": "b3d6044a71a9bfa2ce26c4d3e4370ececb3d82996665eec84b1d0f0fa7d83622",
+ "packages": {
+  "librosa": "0.11.0",
+  "numpy": "2.4.6",
+  "pysptk": "1.0.1",
+  "pyworld": "0.3.5",
+  "scipy": "1.17.1"
+ },
+ "python": "3.11.2",
+ "settings": {
+  "cheaptrick_q1": -0.15,
+  "f0_ceil": 800.0,
+  "f0_floor": 60.0,
+  "hop_ms": 5.0,
+  "stft_center": true,
+  "stft_pad_mode": "constant",
+  "stft_window": "hann (periodic)"
+ },
+ "signal_recipe": {
+  "path": "tests/_support/feature_signals.py",
+  "sha256": "51199c74288acfeda1225ab346c891db49b9b4d7ba07a9f1cf4ac0713825d3d3"
+ }
+}

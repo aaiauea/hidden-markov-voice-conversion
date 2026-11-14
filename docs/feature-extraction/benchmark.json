@@ -1,0 +1,110 @@
+{
+ "generated_utc": "2026-11-14T14:10:28Z",
+ "generator": "tools/benchmark_features.py",
+ "python": "3.11.2",
+ "numpy": "2.4.6",
+ "machine": "x86_64",
+ "cpu_count": 2,
+ "threads": {
+  "OPENBLAS_NUM_THREADS": "1",
+  "OMP_NUM_THREADS": "1"
+ },
+ "signal": "concatenated synthetic mixed utterances (silence, vowels, fricative)",
+ "by_sample_rate": {
+  "8000": {
+   "audio_s": 10.0,
+   "fft_size": 512,
+   "mcep_order": 24,
+   "frames": 2001,
+   "extract_s": 0.2513,
+   "x_realtime": 39.8,
+   "ms_per_frame": 0.1256,
+   "stages": {
+    "f0_voicing_s": 0.0766,
+    "cheaptrick_mcep_s": 0.1111,
+    "band_aperiodicity_s": 0.0425,
+    "stft_descriptors_s": 0.0319
+   }
+  },
+  "16000": {
+   "audio_s": 10.0,
+   "fft_size": 1024,
+   "mcep_order": 24,
+   "frames": 2001,
+   "extract_s": 0.5009,
+   "x_realtime": 20.0,
+   "ms_per_frame": 0.2503,
+   "stages": {
+    "f0_voicing_s": 0.1441,
+    "cheaptrick_mcep_s": 0.2866,
+    "band_aperiodicity_s": 0.114,
+    "stft_descriptors_s": 0.0741
+   }
+  },
+  "22050": {
+   "audio_s": 10.0,
+   "fft_size": 2048,
+   "mcep_order": 34,
+   "frames": 2005,
+   "extract_s": 1.0636,
+   "x_realtime": 9.4,
+   "ms_per_frame": 0.5305,
+   "stages": {
+    "f0_voicing_s": 0.2595,
+    "cheaptrick_mcep_s": 0.5338,
+    "band_aperiodicity_s": 0.0903,
+    "stft_descriptors_s": 0.1315
+   }
+  },
+  "44100": {
+   "audio_s": 10.0,
+   "fft_size": 4096,
+   "mcep_order": 39,
+   "frames": 2005,
+   "extract_s": 2.3726,
+   "x_realtime": 4.2,
+   "ms_per_frame": 1.1833,
+   "stages": {
+    "f0_voicing_s": 0.4286,
+    "cheaptrick_mcep_s": 1.5039,
+    "band_aperiodicity_s": 0.1776,
+    "stft_descriptors_s": 0.2342
+   }
+  },
+  "48000": {
+   "audio_s": 10.0,
+   "fft_size": 4096,
+   "mcep_order": 39,
+   "frames": 2001,
+   "extract_s": 2.1631,
+   "x_realtime": 4.6,
+   "ms_per_frame": 1.081,
+   "stages": {
+    "f0_voicing_s": 0.4161,
+    "cheaptrick_mcep_s": 1.3524,
+    "band_aperiodicity_s": 0.1723,
+    "stft_descriptors_s": 0.2027
+   }
+  }
+ },
+ "duration_scaling_16k": {
+  "1.0": {
+   "extract_s": 0.042,
+   "x_realtime": 23.8,
+   "peak_traced_mib": 18.0,
+   "input_mib": 0.12
+  },
+  "10.0": {
+   "extract_s": 0.4765,
+   "x_realtime": 21.0,
+   "peak_traced_mib": 49.2,
+   "input_mib": 1.22
+  },
+  "60.0": {
+   "extract_s": 3.2459,
+   "x_realtime": 18.5,
+   "peak_traced_mib": 61.3,
+   "input_mib": 7.32
+  }
+ }
+}

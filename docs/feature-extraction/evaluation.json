@@ -1,0 +1,704 @@
+{
+ "generated_utc": "2026-11-14T14:12:26Z",
+ "generator": "tools/evaluate_features.py",
+ "python": "3.11.2",
+ "packages": {
+  "numpy": "2.4.6",
+  "pyworld": "0.3.5",
+  "pysptk": "1.0.1",
+  "librosa": "0.11.0"
+ },
+ "default_config": {
+  "sample_rate": null,
+  "remove_dc": true,
+  "hop_ms": 5.0,
+  "hop_length": null,
+  "frame_ms": 25.0,
+  "frame_length": null,
+  "fft_size": null,
+  "window": "hann",
+  "f0_floor": 60.0,
+  "f0_ceil": 800.0,
+  "yin_threshold": 0.15,
+  "voicing_threshold": 0.25,
+  "voicing_extension_threshold": 0.6,
+  "f0_max_jump": 0.2,
+  "f0_jump_cost": 2.0,
+  "silence_threshold_db": -50.0,
+  "absolute_silence_db": -80.0,
+  "f0_median_frames": 3,
+  "min_voiced_ms": 15.0,
+  "f0_refine_periods": 2.0,
+  "envelope_method": "cheaptrick",
+  "cheaptrick_q1": -0.15,
+  "mcep_order": null,
+  "mcep_alpha": null,
+  "keep_envelope": false,
+  "aperiodicity_bands": [],
+  "n_aperiodicity_bands": 5,
+  "aperiodicity_periods": 4.0,
+  "tilt_range_hz": [
+   100.0,
+   5000.0
+  ],
+  "rolloff_percent": 0.85,
+  "energy_floor_db": -100.0,
+  "power_floor": 1e-12,
+  "block_frames": 512
+ },
+ "envelope_study": {
+  "description": "Gain-removed RMS log-spectral distance (dB, 80 Hz-7.2 kHz) between estimated and true power envelope of steady additive-synthesis vowels, given the true F0; and the mean over frequency of the std-dev across F0 of the estimated envelope shape (F0 invariance; lower is better).",
+  "f0_hz": [
+   100.0,
+   150.0,
+   220.0,
+   300.0,
+   400.0
+  ],
+  "fixed_window_ms": 40,
+  "results": {
+   "a": {
+    "lsd_db_by_f0": {
+     "cheaptrick (HMVC)": {
+      "100": 0.79,
+      "150": 0.89,
+      "220": 1.42,
+      "300": 1.87,
+      "400": 1.99
+     },
+     "true_envelope (HMVC)": {
+      "100": 1.48,
+      "150": 2.4,
+      "220": 4.49,
+      "300": 7.23,
+      "400": 9.83
+     },
+     "lifter (HMVC, fs/2F0)": {
+      "100": 3.95,
+      "150": 5.65,
+      "220": 6.38,
+      "300": 10.43,
+      "400": 13.61
+     },
+     "cheaptrick (WORLD)": {
+      "100": 0.79,
+      "150": 0.86,
+      "220": 1.4,
+      "300": 1.85,
+      "400": 1.99
+     },
+     "HMS builtin lifter (order 40)": {
+      "100": 1.71,
+      "150": 3.24,
+      "220": 5.57,
+      "300": 7.93,
+      "400": 18.56
+     }
+    },
+    "f0_invariance_std_db": {
+     "cheaptrick (HMVC)": 0.72,
+     "true_envelope (HMVC)": 2.38,
+     "lifter (HMVC, fs/2F0)": 4.09,
+     "cheaptrick (WORLD)": 0.72,
+     "HMS builtin lifter (order 40)": 6.99
+    }
+   },
+   "i": {
+    "lsd_db_by_f0": {
+     "cheaptrick (HMVC)": {
+      "100": 0.84,
+      "150": 1.19,
+      "220": 1.31,
+      "300": 2.6,
+      "400": 2.92
+     },
+     "true_envelope (HMVC)": {
+      "100": 1.58,
+      "150": 2.33,
+      "220": 3.93,
+      "300": 6.56,
+      "400": 11.3
+     },
+     "lifter (HMVC, fs/2F0)": {
+      "100": 3.64,
+      "150": 4.0,
+      "220": 3.98,
+      "300": 8.55,
+      "400": 9.73
+     },
+     "cheaptrick (WORLD)": {
+      "100": 0.84,
+      "150": 1.19,
+      "220": 1.31,
+      "300": 2.59,
+      "400": 2.91
+     },
+     "HMS builtin lifter (order 40)": {
+      "100": 1.61,
+      "150": 3.35,
+      "220": 5.51,
+      "300": 8.5,
+      "400": 19.53
+     }
+    },
+    "f0_invariance_std_db": {
+     "cheaptrick (HMVC)": 0.95,
+     "true_envelope (HMVC)": 2.66,
+     "lifter (HMVC, fs/2F0)": 3.4,
+     "cheaptrick (WORLD)": 0.95,
+     "HMS builtin lifter (order 40)": 7.81
+    }
+   }
+  }
+ },
+ "representation_study": {
+  "round_trip": {
+   "speech_cheaptrick": {
+    "frames": 801,
+    "by_dimension": {
+     "mcep_allpass (alpha=0.410)": {
+      "13": {
+       "lsd_db": 3.208,
+       "mel_weighted_lsd_db": 2.633
+      },
+      "20": {
+       "lsd_db": 2.541,
+       "mel_weighted_lsd_db": 1.967
+      },
+      "25": {
+       "lsd_db": 2.184,
+       "mel_weighted_lsd_db": 1.651
+      },
+      "30": {
+       "lsd_db": 1.904,
+       "mel_weighted_lsd_db": 1.409
+      },
+      "35": {
+       "lsd_db": 1.628,
+       "mel_weighted_lsd_db": 1.195
+      },
+      "40": {
+       "lsd_db": 1.419,
+       "mel_weighted_lsd_db": 1.034
+      },
+      "50": {
+       "lsd_db": 1.086,
+       "mel_weighted_lsd_db": 0.78
+      },
+      "60": {
+       "lsd_db": 0.905,
+       "mel_weighted_lsd_db": 0.645
+      }
+     },
+     "linear_cepstrum (alpha=0)": {
+      "13": {
+       "lsd_db": 2.972,
+       "mel_weighted_lsd_db": 3.016
+      },
+      "20": {
+       "lsd_db": 1.854,
+       "mel_weighted_lsd_db": 1.907
+      },
+      "25": {
+       "lsd_db": 1.425,
+       "mel_weighted_lsd_db": 1.434
+      },
+      "30": {
+       "lsd_db": 1.186,
+       "mel_weighted_lsd_db": 1.175
+      },
+      "35": {
+       "lsd_db": 1.052,
+       "mel_weighted_lsd_db": 1.032
+      },
+      "40": {
+       "lsd_db": 0.92,
+       "mel_weighted_lsd_db": 0.889
+      },
+      "50": {
+       "lsd_db": 0.675,
+       "mel_weighted_lsd_db": 0.656
+      },
+      "60": {
+       "lsd_db": 0.487,
+       "mel_weighted_lsd_db": 0.464
+      }
+     },
+     "HMS mel-filterbank DCT": {
+      "13": {
+       "lsd_db": 3.861,
+       "mel_weighted_lsd_db": 3.106
+      },
+      "20": {
+       "lsd_db": 3.022,
+       "mel_weighted_lsd_db": 2.316
+      },
+      "25": {
+       "lsd_db": 2.607,
+       "mel_weighted_lsd_db": 1.955
+      },
+      "30": {
+       "lsd_db": 2.27,
+       "mel_weighted_lsd_db": 1.677
+      },
+      "35": {
+       "lsd_db": 2.004,
+       "mel_weighted_lsd_db": 1.463
+      },
+      "40": {
+       "lsd_db": 1.767,
+       "mel_weighted_lsd_db": 1.282
+      },
+      "50": {
+       "lsd_db": 1.412,
+       "mel_weighted_lsd_db": 1.011
+      },
+      "60": {
+       "lsd_db": 1.191,
+       "mel_weighted_lsd_db": 0.845
+      }
+     }
+    }
+   },
+   "synthetic_vowels": {
+    "frames": 156,
+    "by_dimension": {
+     "mcep_allpass (alpha=0.410)": {
+      "13": {
+       "lsd_db": 3.063,
+       "mel_weighted_lsd_db": 2.554
+      },
+      "20": {
+       "lsd_db": 2.665,
+       "mel_weighted_lsd_db": 2.045
+      },
+      "25": {
+       "lsd_db": 2.454,
+       "mel_weighted_lsd_db": 1.804
+      },
+      "30": {
+       "lsd_db": 2.305,
+       "mel_weighted_lsd_db": 1.662
+      },
+      "35": {
+       "lsd_db": 2.155,
+       "mel_weighted_lsd_db": 1.541
+      },
+      "40": {
+       "lsd_db": 2.028,
+       "mel_weighted_lsd_db": 1.438
+      },
+      "50": {
+       "lsd_db": 1.798,
+       "mel_weighted_lsd_db": 1.255
+      },
+      "60": {
+       "lsd_db": 1.568,
+       "mel_weighted_lsd_db": 1.087
+      }
+     },
+     "linear_cepstrum (alpha=0)": {
+      "13": {
+       "lsd_db": 3.178,
+       "mel_weighted_lsd_db": 3.258
+      },
+      "20": {
+       "lsd_db": 2.528,
+       "mel_weighted_lsd_db": 2.321
+      },
+      "25": {
+       "lsd_db": 2.15,
+       "mel_weighted_lsd_db": 1.89
+      },
+      "30": {
+       "lsd_db": 1.801,
+       "mel_weighted_lsd_db": 1.595
+      },
+      "35": {
+       "lsd_db": 1.543,
+       "mel_weighted_lsd_db": 1.333
+      },
+      "40": {
+       "lsd_db": 1.232,
+       "mel_weighted_lsd_db": 1.078
+      },
+      "50": {
+       "lsd_db": 0.828,
+       "mel_weighted_lsd_db": 0.705
+      },
+      "60": {
+       "lsd_db": 0.586,
+       "mel_weighted_lsd_db": 0.486
+      }
+     },
+     "HMS mel-filterbank DCT": {
+      "13": {
+       "lsd_db": 3.312,
+       "mel_weighted_lsd_db": 2.758
+      },
+      "20": {
+       "lsd_db": 2.909,
+       "mel_weighted_lsd_db": 2.249
+      },
+      "25": {
+       "lsd_db": 2.722,
+       "mel_weighted_lsd_db": 2.034
+      },
+      "30": {
+       "lsd_db": 2.53,
+       "mel_weighted_lsd_db": 1.838
+      },
+      "35": {
+       "lsd_db": 2.375,
+       "mel_weighted_lsd_db": 1.706
+      },
+      "40": {
+       "lsd_db": 2.264,
+       "mel_weighted_lsd_db": 1.61
+      },
+      "50": {
+       "lsd_db": 2.002,
+       "mel_weighted_lsd_db": 1.402
+      },
+      "60": {
+       "lsd_db": 1.794,
+       "mel_weighted_lsd_db": 1.239
+      }
+     }
+    }
+   },
+   "speech_band_rms_error_db": {
+    "D=25 alpha=0.00": {
+     "0-1000 Hz": 2.16,
+     "1000-2000 Hz": 1.85,
+     "2000-4000 Hz": 1.94,
+     "4000-8000 Hz": 1.98
+    },
+    "D=25 alpha=0.41": {
+     "0-1000 Hz": 0.9,
+     "1000-2000 Hz": 1.11,
+     "2000-4000 Hz": 1.94,
+     "4000-8000 Hz": 3.09
+    },
+    "D=25 alpha=0.55": {
+     "0-1000 Hz": 0.56,
+     "1000-2000 Hz": 1.04,
+     "2000-4000 Hz": 2.28,
+     "4000-8000 Hz": 3.55
+    },
+    "D=35 alpha=0.00": {
+     "0-1000 Hz": 1.56,
+     "1000-2000 Hz": 1.35,
+     "2000-4000 Hz": 1.38,
+     "4000-8000 Hz": 1.58
+    },
+    "D=35 alpha=0.41": {
+     "0-1000 Hz": 0.49,
+     "1000-2000 Hz": 0.75,
+     "2000-4000 Hz": 1.43,
+     "4000-8000 Hz": 2.52
+    },
+    "D=35 alpha=0.55": {
+     "0-1000 Hz": 0.26,
+     "1000-2000 Hz": 0.72,
+     "2000-4000 Hz": 1.74,
+     "4000-8000 Hz": 3.08
+    },
+    "D=40 alpha=0.00": {
+     "0-1000 Hz": 1.31,
+     "1000-2000 Hz": 1.14,
+     "2000-4000 Hz": 1.22,
+     "4000-8000 Hz": 1.41
+    },
+    "D=40 alpha=0.41": {
+     "0-1000 Hz": 0.39,
+     "1000-2000 Hz": 0.62,
+     "2000-4000 Hz": 1.27,
+     "4000-8000 Hz": 2.32
+    },
+    "D=40 alpha=0.55": {
+     "0-1000 Hz": 0.2,
+     "1000-2000 Hz": 0.58,
+     "2000-4000 Hz": 1.56,
+     "4000-8000 Hz": 2.88
+    }
+   }
+  },
+  "decorrelation_mean_abs_offdiag_corr": {
+   "log_spectrum (513 bins)": 0.695,
+   "mcep c1..c24": 0.124,
+   "HMS mel-filterbank DCT c1..c24": 0.134
+  },
+  "f0_sensitivity": {
+   "a": {
+    "uels": {
+     "mcd_100_vs_300_hz_db": 22.34,
+     "mcd_to_true_envelope_db": {
+      "100": 3.54,
+      "200": 11.87,
+      "300": 23.46
+     }
+    },
+    "envelope": {
+     "mcd_100_vs_300_hz_db": 2.67,
+     "mcd_to_true_envelope_db": {
+      "100": 1.31,
+      "200": 2.44,
+      "300": 3.09
+     }
+    }
+   },
+   "i": {
+    "uels": {
+     "mcd_100_vs_300_hz_db": 18.54,
+     "mcd_to_true_envelope_db": {
+      "100": 2.04,
+      "200": 10.9,
+      "300": 19.22
+     }
+    },
+    "envelope": {
+     "mcd_100_vs_300_hz_db": 2.99,
+     "mcd_to_true_envelope_db": {
+      "100": 2.58,
+      "200": 3.42,
+      "300": 3.96
+     }
+    }
+   }
+  },
+  "description": "Round-trip RMS log-spectral distance (dB, all bins; and mel-weighted) of envelope -> representation with D coefficients -> envelope. MCD values exclude c0."
+ },
+ "aperiodicity": {
+  "description": "Mean estimated aperiodicity (bands below ~4.2 kHz) for a flat harmonic spectrum mixed with white noise at a known noise power fraction (the key).  Ideal value equals the key.",
+  "results": {
+   "steady": {
+    "0.0": {
+     "hmvc_periods_3": 0.014,
+     "hmvc_periods_4": 0.003,
+     "hmvc_periods_6": 0.0,
+     "world_d4c": 0.002
+    },
+    "0.1": {
+     "hmvc_periods_3": 0.089,
+     "hmvc_periods_4": 0.091,
+     "hmvc_periods_6": 0.092,
+     "world_d4c": 0.083
+    },
+    "0.3": {
+     "hmvc_periods_3": 0.279,
+     "hmvc_periods_4": 0.283,
+     "hmvc_periods_6": 0.284,
+     "world_d4c": 0.158
+    },
+    "0.5": {
+     "hmvc_periods_3": 0.48,
+     "hmvc_periods_4": 0.483,
+     "hmvc_periods_6": 0.483,
+     "world_d4c": 0.234
+    },
+    "0.8": {
+     "hmvc_periods_3": 0.755,
+     "hmvc_periods_4": 0.764,
+     "hmvc_periods_6": 0.771,
+     "world_d4c": 0.321
+    }
+   },
+   "vibrato": {
+    "0.0": {
+     "hmvc_periods_3": 0.026,
+     "hmvc_periods_4": 0.022,
+     "hmvc_periods_6": 0.05,
+     "world_d4c": 0.002
+    },
+    "0.1": {
+     "hmvc_periods_3": 0.1,
+     "hmvc_periods_4": 0.111,
+     "hmvc_periods_6": 0.139,
+     "world_d4c": 0.091
+    },
+    "0.3": {
+     "hmvc_periods_3": 0.289,
+     "hmvc_periods_4": 0.302,
+     "hmvc_periods_6": 0.324,
+     "world_d4c": 0.17
+    },
+    "0.5": {
+     "hmvc_periods_3": 0.492,
+     "hmvc_periods_4": 0.502,
+     "hmvc_periods_6": 0.517,
+     "world_d4c": 0.247
+    },
+    "0.8": {
+     "hmvc_periods_3": 0.776,
+     "hmvc_periods_4": 0.788,
+     "hmvc_periods_6": 0.8,
+     "world_d4c": 0.33
+    }
+   }
+  }
+ },
+ "f0_synthetic": {
+  "vowel_low": {
+   "hmvc_yin_tracked": {
+    "median_cents": 0.72,
+    "p95_cents": 4.1,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 0.99,
+    "false_voiced_frames": 0
+   },
+   "world_harvest": {
+    "median_cents": 0.19,
+    "p95_cents": 5.8,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 0
+   },
+   "world_dio_stonemask": {
+    "median_cents": 0.23,
+    "p95_cents": 0.97,
+    "gross_error_rate": 0.01,
+    "voiced_recall": 0.99,
+    "false_voiced_frames": 0
+   },
+   "hms_autocorrelation": {
+    "median_cents": 4.97,
+    "p95_cents": 1917.4,
+    "gross_error_rate": 0.1386,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 0
+   }
+  },
+  "vowel_high": {
+   "hmvc_yin_tracked": {
+    "median_cents": 0.23,
+    "p95_cents": 0.72,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 0
+   },
+   "world_harvest": {
+    "median_cents": 0.14,
+    "p95_cents": 2.67,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 0
+   },
+   "world_dio_stonemask": {
+    "median_cents": 0.62,
+    "p95_cents": 2.05,
+    "gross_error_rate": 0.01,
+    "voiced_recall": 0.99,
+    "false_voiced_frames": 0
+   },
+   "hms_autocorrelation": {
+    "median_cents": 25.24,
+    "p95_cents": 43.26,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 0
+   }
+  },
+  "mixed": {
+   "hmvc_yin_tracked": {
+    "median_cents": 2.13,
+    "p95_cents": 6.92,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 2
+   },
+   "world_harvest": {
+    "median_cents": 0.31,
+    "p95_cents": 24.52,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 11
+   },
+   "world_dio_stonemask": {
+    "median_cents": 0.54,
+    "p95_cents": 16.99,
+    "gross_error_rate": 0.0159,
+    "voiced_recall": 0.984,
+    "false_voiced_frames": 2
+   },
+   "hms_autocorrelation": {
+    "median_cents": 13.16,
+    "p95_cents": 1912.18,
+    "gross_error_rate": 0.0938,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 24
+   }
+  },
+  "vowel_22k": {
+   "hmvc_yin_tracked": {
+    "median_cents": 0.98,
+    "p95_cents": 3.22,
+    "gross_error_rate": 0.0,
+    "voiced_recall": 1.0,
+    "false_voiced_frames": 0
+   }
+  }
+ },
+ "speech": {
+  "file": "arctic_a0007.wav (CMU ARCTIC, 16 kHz, from the pysptk package)",
+  "f0_and_voicing": {
+   "hmvc_vs_harvest": {
+    "voicing_agreement": 0.801,
+    "median_cents": 7.5,
+    "p90_cents": 55.4,
+    "gross_error_rate": 0.0191,
+    "both_voiced_frames": 367
+   },
+   "hmvc_vs_dio": {
+    "voicing_agreement": 0.911,
+    "median_cents": 7.76,
+    "p90_cents": 37.5,
+    "gross_error_rate": 0.0028,
+    "both_voiced_frames": 352
+   },
+   "harvest_vs_dio (reference spread)": {
+    "voicing_agreement": 0.81,
+    "median_cents": 5.29,
+    "p90_cents": 59.4,
+    "gross_error_rate": 0.0153,
+    "both_voiced_frames": 391
+   },
+   "librosa_pyin_vs_harvest": {
+    "voicing_agreement": 0.744,
+    "median_cents": 25.24,
+    "p90_cents": 159.3,
+    "gross_error_rate": 0.0072,
+    "both_voiced_frames": 414
+   },
+   "librosa_pyin_vs_dio": {
+    "voicing_agreement": 0.851,
+    "median_cents": 24.49,
+    "p90_cents": 179.0,
+    "gross_error_rate": 0.0151,
+    "both_voiced_frames": 398
+   },
+   "voiced_fraction": {
+    "hmvc": 0.458,
+    "harvest": 0.657,
+    "dio": 0.509,
+    "pyin": 0.633
+   }
+  },
+  "envelope_and_mcep": {
+   "cheaptrick_vs_world_max_abs_db_above_floor": 5.62e-06,
+   "cheaptrick_vs_world_mean_abs_db_above_floor": 7.62e-08,
+   "fraction_bins_above_floor": 0.9998,
+   "sp2mc_vs_pysptk_max_abs": 5.33e-15,
+   "mcep_roundtrip_lsd_db": 2.184
+  },
+  "speed": {
+   "audio_seconds": 4.0,
+   "hmvc_full_extraction_s": 0.1882,
+   "hmvc_x_realtime": 21.3,
+   "world_harvest_cheaptrick_d4c_s": 1.0628,
+   "world_dio_stonemask_cheaptrick_d4c_s": 0.1996,
+   "note": "single-threaded; pyworld is compiled C++, HMVC is NumPy"
+  }
+ },
+ "runtime_s": 13.8
+}

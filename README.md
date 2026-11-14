@@ -1,8 +1,13 @@
 # hidden-markov-voice-conversion
 
-HMVC's long-term goal is lightweight, CPU-friendly voice conversion. **Phase 0
-extracts the existing HMS synthesis engine as a self-contained foundation; it
-does not implement HMVC-specific conversion, LPC features, or synthesis changes.**
+HMVC's long-term goal is lightweight, CPU-friendly voice conversion.
+
+- **Phase 0** extracted the existing HMS synthesis engine as a self-contained
+  foundation (`hmvc.engine`).
+- **Phase 1** adds classical, NumPy-only acoustic feature extraction for
+  audio-to-audio conversion (`hmvc.features`).
+
+No conversion mapping, training pipeline or neural component exists yet.
 
 ## Engine foundation
 
@@ -23,6 +28,39 @@ the exact dependency closure, transferred files, adaptations, actual test result
 and limitations. Attribution: [third-party notices](THIRD_PARTY_NOTICES.md),
 [original MIT license](src/hmvc/engine/LICENSE.hms), and
 [per-file provenance](src/hmvc/engine/UPSTREAM.json).
+
+## Feature extraction (Phase 1)
+
+`hmvc.features` analyses WAV files or arrays at any common sample rate into
+separate, frame-synchronous streams:
+
+- a reconstructible, compact **mel-cepstral** representation of a CheapTrick
+  spectral envelope (the primary representation). Finite-order MCEP is an
+  approximation of the original envelope, not a lossless encoding: at the
+  16 kHz default (order 24) the envelope rebuilt with `mc2sp` differs from the
+  original by about 2.2 dB RMS log-spectral distance on speech. Use
+  `keep_envelope=True` to keep the full envelope as well;
+- **F0**, **voicing** and **periodicity**;
+- frame **energy**;
+- **band aperiodicity**;
+- **spectral descriptors** (centroid, bandwidth, rolloff, flatness, tilt,
+  ZCR, flux).
+
+Corpus normalisation is mergeable. It uses no neural model, transcript,
+WORLD/SPTK library or new dependency.
+
+```python
+from hmvc.features import AnalysisConfig, FeatureExtractor
+
+feats = FeatureExtractor(AnalysisConfig(sample_rate=16000)).extract_file("utt.wav")
+feats.mcep, feats.f0, feats.voiced, feats.energy_db, feats.band_aperiodicity
+```
+
+CLI: `python -m hmvc.features extract utt.wav utt.npz` and
+`python -m hmvc.features info utt.npz`. See the
+[feature-extraction report](docs/feature-extraction.md) for the representation
+study, the rejected alternatives, agreement with WORLD/SPTK/librosa,
+configuration, benchmarks and limitations.
 
 ## Install
 
@@ -76,9 +114,17 @@ auto-build **in tests**, ports the applicable HMS engine regressions, and compar
 actual waveforms/parameters against independently generated original-HMS
 references. No network access or original HMS repository is needed for this run.
 
+`tests/features/` checks the feature extractor on synthetic signals with known
+F0 and envelopes, on unusual input, and against stored outputs of WORLD, SPTK
+and librosa (`tests/data/feature-reference/`), without importing those
+libraries. `tools/generate_feature_reference.py` and `tools/evaluate_features.py`
+need them in a separate environment. `tools/benchmark_features.py` needs only
+NumPy.
+
 The port is reproducible/reviewable with the optional maintainer tool
 `tools/extract_hms_engine.py --source /separate/pinned/HMS --check`.
 `tools/generate_hms_reference.py` regenerates the synthetic baseline from original
 HMS only when explicitly requested. Neither tool is used by the installed engine.
 
-**This is an engine bootstrap, not a finished HMVC voice-conversion system.**
+**This is an engine bootstrap plus feature extraction, not a finished HMVC
+voice-conversion system.**
