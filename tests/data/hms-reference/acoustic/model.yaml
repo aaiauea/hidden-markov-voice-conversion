@@ -1,0 +1,732 @@
+format_version: 4
+name: synthetic-phase0
+stats:
+  utterances: 2
+  frames: 314
+  phoneme_occurrences: 12
+  duration_seconds: 1.57
+  training_method: viterbi
+  n_iterations: 2
+  created: ''
+  notes: []
+metadata:
+  hms_version: 0.1.0
+  vocoder: builtin
+  label_file: synthetic/labels.tsv
+  wav_dir: synthetic/wav
+  training_config:
+    wav_dir: synthetic/wav
+    label_file: synthetic/labels.tsv
+    time_unit: seconds
+    default_note: 60.0
+    audio_extensions:
+    - .wav
+    fs: 16000
+    frame_period: 5.0
+    fft_size: 512
+    n_mcep: 6
+    n_band: 3
+    use_delta: true
+    use_delta2: true
+    f0_ceiling: 800.0
+    f0_floor: 71.0
+    f0_estimation: dio
+    refine_f0: true
+    vocoder: builtin
+    covariance_type: diag
+    var_floor_ratio: 0.001
+    training_method: viterbi
+    n_iterations: 2
+    normalize_scale: true
+    seed: 7
+    allow_skip: false
+    min_phoneme_frames: 4
+    duration_variance_scale: 1.0
+    vibrato_enabled: false
+    vibrato_estimate_from_data: false
+    pitch_variation: 1.0
+    context_enabled: true
+    context_min_frames: 4
+    context_min_occurrences: 1
+    context_max_models: 16
+    context_partial: true
+    context_global_backoff: true
+    pitch_conditioning_enabled: true
+    pitch_conditioning_bin_size: 6
+feature_spec:
+  fs: 16000
+  frame_period: 5.0
+  fft_size: 512
+  n_mcep: 6
+  n_band: 3
+  use_delta: true
+  use_delta2: true
+  f0_ref_hz: 261.6255653005986
+  f0_floor: 71.0
+  f0_ceil: 800.0
+  pitch_bins_per_semitone: 8
+  voiced_threshold: 5.0
+  mcep_f_min: 0.0
+  f0_estimation: dio
+  refine_f0: true
+  delta_window: 2
+normalization:
+  offset:
+  - 1.1830731995549766
+  - -26.058738418450105
+  - 11.622090691729413
+  - 4.256768387067697
+  - -0.6607421981474791
+  - -1.3903583853176857
+  - -0.46663685988779885
+  - 0.6868373486756267
+  - 0.31723248144976923
+  - 0.2119791627055973
+  scale:
+  - 0.40242288815048644
+  - 0.05349991137309122
+  - 0.1717338243797029
+  - 0.3500371033038654
+  - 0.5052394554703844
+  - 1.124105143832437
+  - 1.2190541415198255
+  - 3.998078643642065
+  - 3.2376599156355326
+  - 2.775932292547295
+  units:
+    '0': semitones re. the sung note
+    '1:7': mel-cepstrum (c0..)
+    '7:': aperiodicity bands
+phonemes:
+  silence: sil
+  defaults:
+    vowel:
+      n_states: 2
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    voiced_consonant:
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+    unvoiced_consonant:
+      n_states: 1
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    silence:
+      n_states: 1
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+  aliases: {}
+  phonemes:
+    a:
+      type: vowel
+      n_states: 2
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    i:
+      type: vowel
+      n_states: 2
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    s:
+      type: unvoiced_consonant
+      n_states: 1
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    sil:
+      type: silence
+      n_states: 1
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+duration_model:
+  variance_scale: 1.0
+  stats:
+    a:
+      mean: 3.6888794541139363
+      variance: 0.0001
+      count: 4
+    i:
+      mean: 3.6888794541139363
+      variance: 0.0001
+      count: 2
+    s:
+      mean: 2.772588722239781
+      variance: 0.0001
+      count: 2
+    sil:
+      mean: 2.0794415416798357
+      variance: 0.0001
+      count: 4
+pitch_model:
+  pitch_variation: 1.0
+  vibrato:
+    enabled: false
+    rate_hz: 5.5
+    depth_semitones: 0.6
+    delay_ms: 120.0
+    randomness: 0.15
+    attack_ms: 80.0
+    waveform: sine
+  voiced_prior:
+    a: 1.0
+    i: 1.0
+    s: 0.0625
+    sil: 0.15625
+  stats:
+    a:
+    - mean: -0.5639513852815059
+      variance: 13.660931116353762
+      count: 20
+    - mean: 0.30596699533593225
+      variance: 0.004276613768801638
+      count: 140
+    i:
+    - mean: 0.3245511572884445
+      variance: 0.011387153724870909
+      count: 40
+    - mean: 0.21407427419800376
+      variance: 0.0023882589592136147
+      count: 40
+    s:
+    - mean: 2.416882925449012
+      variance: 6.585380300488462
+      count: 32
+    sil:
+    - mean: 5.4250763705786795
+      variance: 8.542498625123743
+      count: 32
+hmm_index:
+  a:
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    stated_type: vowel
+    n_free_params: 362
+  i:
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    stated_type: vowel
+    n_free_params: 362
+  s:
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    stated_type: unvoiced_consonant
+    n_free_params: 91
+  sil:
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    stated_type: silence
+    n_free_params: 91
+backoff_index:
+  silence:
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+  unvoiced_consonant:
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+  vowel:
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+context_index:
+  _^a^s:
+    kind: right
+    pre: null
+    curr: a
+    post: s
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  _^a^sil:
+    kind: right
+    pre: null
+    curr: a
+    post: sil
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  _^i^a:
+    kind: right
+    pre: null
+    curr: i
+    post: a
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  _^s^i:
+    kind: right
+    pre: null
+    curr: s
+    post: i
+    frames: 32
+    occurrences: 2
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    n_free_params: 91
+  _^sil^a:
+    kind: right
+    pre: null
+    curr: sil
+    post: a
+    frames: 16
+    occurrences: 2
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    n_free_params: 91
+  _^sil^sil:
+    kind: right
+    pre: null
+    curr: sil
+    post: sil
+    frames: 16
+    occurrences: 2
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    n_free_params: 91
+  a^s^_:
+    kind: left
+    pre: a
+    curr: s
+    post: null
+    frames: 32
+    occurrences: 2
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    n_free_params: 91
+  a^s^i:
+    kind: triphone
+    pre: a
+    curr: s
+    post: i
+    frames: 32
+    occurrences: 2
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    n_free_params: 91
+  a^sil^_:
+    kind: left
+    pre: a
+    curr: sil
+    post: null
+    frames: 16
+    occurrences: 2
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    n_free_params: 91
+  a^sil^sil:
+    kind: triphone
+    pre: a
+    curr: sil
+    post: sil
+    frames: 16
+    occurrences: 2
+    n_states: 1
+    n_components: 1
+    covariance: diag
+    allow_skip: false
+    n_free_params: 91
+  i^a^_:
+    kind: left
+    pre: i
+    curr: a
+    post: null
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  i^a^sil:
+    kind: triphone
+    pre: i
+    curr: a
+    post: sil
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  s^i^_:
+    kind: left
+    pre: s
+    curr: i
+    post: null
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  s^i^a:
+    kind: triphone
+    pre: s
+    curr: i
+    post: a
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  sil^a^_:
+    kind: left
+    pre: sil
+    curr: a
+    post: null
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+  sil^a^s:
+    kind: triphone
+    pre: sil
+    curr: a
+    post: s
+    frames: 80
+    occurrences: 2
+    n_states: 2
+    n_components: 2
+    covariance: diag
+    allow_skip: false
+    n_free_params: 362
+global_backoff_index:
+  n_states: 3
+  n_components: 1
+  covariance: diag
+  allow_skip: false
+  n_free_params: 273
+pitch_conditioning:
+  enabled: true
+  bin_size: 6
+  bin_unit: semitones
+  n_bins: 22
+pitch_index:
+  _^a^s:
+    10:
+      kind: right
+      unit: _^a^s
+      curr: a
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+    11:
+      kind: right
+      unit: _^a^s
+      curr: a
+      pitch_bin: 11
+      note_min: 66
+      note_max: 71
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  _^a^sil:
+    10:
+      kind: right
+      unit: _^a^sil
+      curr: a
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+    11:
+      kind: right
+      unit: _^a^sil
+      curr: a
+      pitch_bin: 11
+      note_min: 66
+      note_max: 71
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  _^i^a:
+    10:
+      kind: right
+      unit: _^i^a
+      curr: i
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 80
+      occurrences: 2
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  a:
+    10:
+      kind: phone
+      unit: a
+      curr: a
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 80
+      occurrences: 2
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+    11:
+      kind: phone
+      unit: a
+      curr: a
+      pitch_bin: 11
+      note_min: 66
+      note_max: 71
+      frames: 80
+      occurrences: 2
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  i:
+    10:
+      kind: phone
+      unit: i
+      curr: i
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 80
+      occurrences: 2
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  i^a^_:
+    10:
+      kind: left
+      unit: i^a^_
+      curr: a
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+    11:
+      kind: left
+      unit: i^a^_
+      curr: a
+      pitch_bin: 11
+      note_min: 66
+      note_max: 71
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  i^a^sil:
+    10:
+      kind: triphone
+      unit: i^a^sil
+      curr: a
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+    11:
+      kind: triphone
+      unit: i^a^sil
+      curr: a
+      pitch_bin: 11
+      note_min: 66
+      note_max: 71
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  s^i^_:
+    10:
+      kind: left
+      unit: s^i^_
+      curr: i
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 80
+      occurrences: 2
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  s^i^a:
+    10:
+      kind: triphone
+      unit: s^i^a
+      curr: i
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 80
+      occurrences: 2
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  sil^a^_:
+    10:
+      kind: left
+      unit: sil^a^_
+      curr: a
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+    11:
+      kind: left
+      unit: sil^a^_
+      curr: a
+      pitch_bin: 11
+      note_min: 66
+      note_max: 71
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+  sil^a^s:
+    10:
+      kind: triphone
+      unit: sil^a^s
+      curr: a
+      pitch_bin: 10
+      note_min: 60
+      note_max: 65
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+    11:
+      kind: triphone
+      unit: sil^a^s
+      curr: a
+      pitch_bin: 11
+      note_min: 66
+      note_max: 71
+      frames: 40
+      occurrences: 1
+      n_states: 2
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+      n_free_params: 362
+global_variance:
+  space: normalized_static
+  utterances: 2
+  target_variance:
+  - 0.9887938551123436
+  - 0.999999150054254
+  - 0.9999988971705258
+  - 0.999942553918457
+  - 0.9998713364814934
+  - 0.9999613279563626
+  - 0.9996328528090146
+  - 0.9999364245082802
+  - 0.9999317030019405
+  - 0.9998875868074941

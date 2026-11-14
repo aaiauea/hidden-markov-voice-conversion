@@ -1,0 +1,789 @@
+{
+  "adaptations": [
+    "Import statements: hms -> hmvc.engine; original class/function names unchanged",
+    "world_native._try_build resolves package-local _native/build_world.sh",
+    "Native shell helper: package-local output, WORLD source, and C ABI shim paths",
+    "MIT/provenance headers; non-import strings including model format IDs unchanged",
+    "Tests: namespace and three monkeypatch paths; synthetic generator test-only; remove checkout sys.path shim",
+    "Omit CLI/config-loader/evaluation/example tests; keep applicable engine assertions unchanged"
+  ],
+  "excluded_runtime_modules": [
+    "hms.cli",
+    "hms.cli.main",
+    "hms.config",
+    "hms.core.evaluate",
+    "hms.data.demo_singer"
+  ],
+  "files": [
+    {
+      "category": "MIT notice",
+      "local": "src/hmvc/engine/LICENSE.hms",
+      "local_sha256": "ceb44196ddcc1f3d3f973e9876139db3d40333609f6833894fbc75f5077bb5ed",
+      "upstream": "LICENSE",
+      "upstream_sha256": "ceb44196ddcc1f3d3f973e9876139db3d40333609f6833894fbc75f5077bb5ed"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms.core.model"
+      ],
+      "local": "src/hmvc/engine/__init__.py",
+      "local_sha256": "ae11bc02c528266c3a05e0cb7e523e4300db83504a62a66e65c028cb5caf7e1e",
+      "upstream": "hms/__init__.py",
+      "upstream_sha256": "6b64e3ecf0c683addc40783940df8b5bd51357c604038f27fef7c8bec7d68dad"
+    },
+    {
+      "category": "required default resource",
+      "local": "src/hmvc/engine/config/phonemes.yaml",
+      "local_sha256": "d2f2f089f6de39544ad63ac791135ffd17f4cde411af1fe1182127da23201c93",
+      "upstream": "hms/config/phonemes.yaml",
+      "upstream_sha256": "d2f2f089f6de39544ad63ac791135ffd17f4cde411af1fe1182127da23201c93"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms"
+      ],
+      "local": "src/hmvc/engine/core/__init__.py",
+      "local_sha256": "3535e2390bd72bd47222d487a3a71daf413d2bac43a564017837ae6ff4bfc1f8",
+      "upstream": "hms/core/__init__.py",
+      "upstream_sha256": "77bc1ae105479827528eb9ed5f72ca8d664374b1b549f30708c0fb827af3bb38"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core"
+      ],
+      "local": "src/hmvc/engine/core/context.py",
+      "local_sha256": "ca32cd5e65cf521e3ffe78059a8dd3854f10166f01ad90cc39e980d24edf37c8",
+      "upstream": "hms/core/context.py",
+      "upstream_sha256": "f39ae42288e728a09d221612bea866f2485626d06a1bdd71a0d65f57955f450c"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.features"
+      ],
+      "local": "src/hmvc/engine/core/dsp.py",
+      "local_sha256": "87161e06eb6fead0cce852c5a1b779c3357e39ac422f174389e2e1ef11e5c209",
+      "upstream": "hms/core/dsp.py",
+      "upstream_sha256": "126ac67a773ea10c15d3cf7a2f3ee389c4e2054c34ccf6dfba1af09143916ec0"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core"
+      ],
+      "local": "src/hmvc/engine/core/duration.py",
+      "local_sha256": "c54ce15dff821f06959dcf48f0fb228e8ed90230654cc895fdc51894ab6648a4",
+      "upstream": "hms/core/duration.py",
+      "upstream_sha256": "2324ca1b1e026cc38716d287e9ad79a636b8163f6b620d7c7b28f16fb87aff6f"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core"
+      ],
+      "local": "src/hmvc/engine/core/features.py",
+      "local_sha256": "1fc18483c095e45966a85e95e53be8e30c5a79529300fed040b5df59a1adae3a",
+      "upstream": "hms/core/features.py",
+      "upstream_sha256": "55719de23d5f7a9ebf74006907d1ef190e8514bd0b0a7f583242269bf916ba1a"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.features"
+      ],
+      "local": "src/hmvc/engine/core/generation.py",
+      "local_sha256": "bbac8a886ee2a0113347a8d44dd80ea70e575504b84f868b3db4f77c947bdab9",
+      "upstream": "hms/core/generation.py",
+      "upstream_sha256": "0cdd23085904712ad4184dbe07612e0266ff37559111743e3f50f26a1f06471c"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core"
+      ],
+      "local": "src/hmvc/engine/core/gmm.py",
+      "local_sha256": "b9427447c3bdc82dbfe137be42caeda9d0f73e3067d18f57aee20347a03bbcaa",
+      "upstream": "hms/core/gmm.py",
+      "upstream_sha256": "fd6b13fcf2f8b965f2b84daf7ec68978778c4be4db9710b42c3183bf7c095871"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.generation"
+      ],
+      "local": "src/hmvc/engine/core/gv.py",
+      "local_sha256": "0331bd8fbf493e85f648d1426cf17316b98aacfacb39cba38c4f4bf97316d638",
+      "upstream": "hms/core/gv.py",
+      "upstream_sha256": "bd8e2bbbdac9ba5e4ce04244261e91ffb02b490c1bd8b4c98092432a3ccf258c"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.gmm"
+      ],
+      "local": "src/hmvc/engine/core/hmm.py",
+      "local_sha256": "2eff580052f1908deba7216a9494793dec22da8095c219b1b94ebecb354c61ea",
+      "upstream": "hms/core/hmm.py",
+      "upstream_sha256": "8973b27408401580dfd3da083e9fa416ce6d2607d13d5bc48dba8c72023fe8b5"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core"
+      ],
+      "local": "src/hmvc/engine/core/labels.py",
+      "local_sha256": "346b8471944041e049eccd25161ff8aef5508f73b9e1f388ee4b390cc2fcd6b0",
+      "upstream": "hms/core/labels.py",
+      "upstream_sha256": "26dd34d9d1ec2662668dace99dc7e5df3627390787e9352bfa9dd411a5b3e57e"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.context",
+        "hms.core.duration",
+        "hms.core.features",
+        "hms.core.gv",
+        "hms.core.hmm",
+        "hms.core.phonemes",
+        "hms.core.pitch",
+        "hms.core.pitch_condition"
+      ],
+      "local": "src/hmvc/engine/core/model.py",
+      "local_sha256": "a1cf71bf0a48a5bfe5ab2e9b69fb689869a41335da22ac403705329a746453c8",
+      "upstream": "hms/core/model.py",
+      "upstream_sha256": "bb26d1a5602adb7f4a2563b55759b491d7923afa99b13b7c19a2bed9ea8e98f6"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core"
+      ],
+      "local": "src/hmvc/engine/core/phonemes.py",
+      "local_sha256": "b23e25842a344767d27019c0c5384e34d11f761f20377b1fa65cec97b50ad1ae",
+      "upstream": "hms/core/phonemes.py",
+      "upstream_sha256": "782e4df250da16ec2e250c5d78b74ecc1ad81dc9acf8f65df6c6cb61a959fa91"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core"
+      ],
+      "local": "src/hmvc/engine/core/pitch.py",
+      "local_sha256": "43dc16e48c7f000196a767cc38007700be2bedb5e37f64a97c25a74608e9cba0",
+      "upstream": "hms/core/pitch.py",
+      "upstream_sha256": "5e4e3f8637a60004e55b7db0de399ee82afa61d7855cd9cc336e555d889f6c57"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.labels"
+      ],
+      "local": "src/hmvc/engine/core/pitch_condition.py",
+      "local_sha256": "56119c409490ec80d62fb7d2599ff1dad68b44c63ae28caa3821efa5e7d0e763",
+      "upstream": "hms/core/pitch_condition.py",
+      "upstream_sha256": "f086b55849b1efc9bbd2c46c1488b64211019f7657c0caf49d1d9e6b16c3206e"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.duration",
+        "hms.core.features",
+        "hms.core.generation",
+        "hms.core.gv",
+        "hms.core.labels",
+        "hms.core.model",
+        "hms.core.pitch",
+        "hms.core.pitch_condition",
+        "hms.source.hmm",
+        "hms.source.synthesis",
+        "hms.vocoder",
+        "hms.vocoder.base"
+      ],
+      "local": "src/hmvc/engine/core/synthesizer.py",
+      "local_sha256": "3df313a6db06fe0a129e8734cb425943d6481192fa4ef48817721c61467cdd9f",
+      "upstream": "hms/core/synthesizer.py",
+      "upstream_sha256": "dad59fda8db682a210a34c6228b9a95e773d026938696f9fbfeb036938339bc3"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core",
+        "hms.core.context",
+        "hms.core.duration",
+        "hms.core.features",
+        "hms.core.gv",
+        "hms.core.hmm",
+        "hms.core.labels",
+        "hms.core.model",
+        "hms.core.phonemes",
+        "hms.core.pitch",
+        "hms.core.pitch_condition",
+        "hms.data",
+        "hms.data.wavio",
+        "hms.vocoder"
+      ],
+      "local": "src/hmvc/engine/core/trainer.py",
+      "local_sha256": "59130e91b1c9068d86fef96997a61f011e8024d454dbf520a372a90da5f4e57f",
+      "upstream": "hms/core/trainer.py",
+      "upstream_sha256": "3788c49032c9385878a4d6b0e5980f40ef78a78d05c1fc9b0a9c37e24b340023"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms"
+      ],
+      "local": "src/hmvc/engine/data/__init__.py",
+      "local_sha256": "11d30317114cb789f9da9580d92693da6ac2647afeb4ee6101d976668ca0d92f",
+      "upstream": "hms/data/__init__.py",
+      "upstream_sha256": "e01f9a219781bdc525d88141da0dcee47e152a0bd81ef4bc13a681388643e053"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.features",
+        "hms.data"
+      ],
+      "local": "src/hmvc/engine/data/wavio.py",
+      "local_sha256": "e1b3adaca2dbecef504020f403484f1b9eb0d42bb3c8cf7de04e2b4c383af666",
+      "upstream": "hms/data/wavio.py",
+      "upstream_sha256": "050e8da2675853a4acbf8d7601433b4b0f12024c82e9c7142cf65ab1443d46f4"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.source.base",
+        "hms.source.cycles",
+        "hms.source.generic",
+        "hms.source.hmm",
+        "hms.source.pca",
+        "hms.source.residual",
+        "hms.source.synthesis",
+        "hms.source.trainer",
+        "hms.source.voice"
+      ],
+      "local": "src/hmvc/engine/source/__init__.py",
+      "local_sha256": "cc8e6c28e62db610396f2bc1228e0e6d748cb53d11a3e64faf8d8df4c0648076",
+      "upstream": "hms/source/__init__.py",
+      "upstream_sha256": "de21aedf3597a3e12995ed11279299a0a4e3791fb7066d2a53cb077d0f3f70a5"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.features",
+        "hms.source",
+        "hms.source.cycles"
+      ],
+      "local": "src/hmvc/engine/source/base.py",
+      "local_sha256": "7c1460d29b8ea71b6ff173ec629a4b8227c674e088e3ffabb8d7e9c4ec5d0e91",
+      "upstream": "hms/source/base.py",
+      "upstream_sha256": "55a0d68db355a54a0595a0a4bf6d5297a0550feba57c520d895877f7b6423c21"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.source"
+      ],
+      "local": "src/hmvc/engine/source/cycles.py",
+      "local_sha256": "879446e62235eb50be919dac9df825a9cd37cec555588af1efff4de744b1c605",
+      "upstream": "hms/source/cycles.py",
+      "upstream_sha256": "0e5885ab36a4871cad4e2f0814448ca34dc029f2441b6c8bc837890a9a1503f7"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.features",
+        "hms.source",
+        "hms.source.base",
+        "hms.source.cycles",
+        "hms.source.residual"
+      ],
+      "local": "src/hmvc/engine/source/generic.py",
+      "local_sha256": "08af8df6c95092882ced2412b5dc9a209c71f33e1d15538fdb32958f59a100cf",
+      "upstream": "hms/source/generic.py",
+      "upstream_sha256": "29acb07c19fd3557c72d40be739294c9f9348350f9fd3960cf28aa4f83612e95"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.context",
+        "hms.core.duration",
+        "hms.core.features",
+        "hms.core.generation",
+        "hms.core.hmm",
+        "hms.core.labels",
+        "hms.core.phonemes",
+        "hms.source",
+        "hms.source.base",
+        "hms.source.cycles",
+        "hms.source.pca"
+      ],
+      "local": "src/hmvc/engine/source/hmm.py",
+      "local_sha256": "69ff0a430b25191c4ebe8f94ffbb84a9371e92af7d693cb27a212f9a12e99ae6",
+      "upstream": "hms/source/hmm.py",
+      "upstream_sha256": "1defa73eec31ae6fcd606521edd3c881916ab6a1497a085c0512cae69e8ff790"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.source"
+      ],
+      "local": "src/hmvc/engine/source/pca.py",
+      "local_sha256": "c12ecc4570758bf5a068839a705cf21760860b60c324c30e88d5108bdebe360c",
+      "upstream": "hms/source/pca.py",
+      "upstream_sha256": "1428a68888086680ca7271bd833e0bb5dbcb0f03367069a98c53396e252dd01b"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.dsp",
+        "hms.core.features",
+        "hms.source"
+      ],
+      "local": "src/hmvc/engine/source/residual.py",
+      "local_sha256": "8b645a5eec9f886787cbf42e181be96876c6a8914caccdd85ed565848d04f734",
+      "upstream": "hms/source/residual.py",
+      "upstream_sha256": "980c78584e98f3a26938aa55c7859f00f959c79b75936932dee8c4f094064830"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.features",
+        "hms.source",
+        "hms.source.cycles",
+        "hms.vocoder.base"
+      ],
+      "local": "src/hmvc/engine/source/synthesis.py",
+      "local_sha256": "fbb4175d0f3141fe5823afd4a71b766a41484ea0c593e189574d7c5c12580a16",
+      "upstream": "hms/source/synthesis.py",
+      "upstream_sha256": "2089d3de7588e8762e0a79804cf855ff0d2d1479c3b540b35bc93e45e6ab5916"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.context",
+        "hms.core.features",
+        "hms.core.hmm",
+        "hms.core.labels",
+        "hms.core.phonemes",
+        "hms.source",
+        "hms.source.base",
+        "hms.source.hmm",
+        "hms.source.pca"
+      ],
+      "local": "src/hmvc/engine/source/trainer.py",
+      "local_sha256": "6671837d2eb3743e6e0d159c0daffb6ced6dfd0ab4a5b2eedec82f98b5a644a5",
+      "upstream": "hms/source/trainer.py",
+      "upstream_sha256": "9dd6b57cce63a2b12791b9b26df691c3932932bd5824fee85ebbd93ff00563f1"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.dsp",
+        "hms.core.features",
+        "hms.source",
+        "hms.source.base",
+        "hms.source.cycles",
+        "hms.source.residual"
+      ],
+      "local": "src/hmvc/engine/source/voice.py",
+      "local_sha256": "c046eb4ff9ab189bedab405442a0ce875b8c47ed0db7a082bd15a0831eed95a2",
+      "upstream": "hms/source/voice.py",
+      "upstream_sha256": "4e6e47293d932ee11db114134f9c5d1dd2dd65646a23e5a2c23479f43eb5abd4"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.vocoder.base",
+        "hms.vocoder.builtin",
+        "hms.vocoder.mlsa",
+        "hms.vocoder.pyworld_backend",
+        "hms.vocoder.world_native"
+      ],
+      "local": "src/hmvc/engine/vocoder/__init__.py",
+      "local_sha256": "feb9002624c3fec60b733e96f83ea06d9d9a74cd30cdf99feb98c26ff430a5ab",
+      "upstream": "hms/vocoder/__init__.py",
+      "upstream_sha256": "3139bfc1d55233dbed55221c2a824da3a8739d540564d311f7c832cd808b31e0"
+    },
+    {
+      "category": "optional native build support",
+      "local": "src/hmvc/engine/vocoder/_native/build_world.sh",
+      "local_sha256": "75911c7c63663bae0f6130593e66c9ea61fe5670515e501409edc59adcec0839",
+      "upstream": "tools/build_world.sh",
+      "upstream_sha256": "29115c6be711d80254aab426637523fdd0c54ae21739ece75519b29f2897d361"
+    },
+    {
+      "category": "optional native build support",
+      "local": "src/hmvc/engine/vocoder/_native/hms_world_capi.cpp",
+      "local_sha256": "39743edf7058a40e3ee5888b6c390a26f6ad710c42671452f213c993cecef05c",
+      "upstream": "tools/world_native/hms_world_capi.cpp",
+      "upstream_sha256": "6207e463ed84a988a6a678ff6dfd599d5a55e4d4cb373eb0eb115504b60380e2"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.features",
+        "hms.vocoder"
+      ],
+      "local": "src/hmvc/engine/vocoder/base.py",
+      "local_sha256": "4d8fc86c06a810dd60262d5c8ca81019b9a9e3989df5f304c0c9872cb500dd08",
+      "upstream": "hms/vocoder/base.py",
+      "upstream_sha256": "3c5e4c80b12786184e3b3d10fb771f61cb87633ab6d54d0d52e6aec9a4fe74e4"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.dsp",
+        "hms.core.features",
+        "hms.vocoder",
+        "hms.vocoder.base"
+      ],
+      "local": "src/hmvc/engine/vocoder/builtin.py",
+      "local_sha256": "d0028b354686e21309ec8139b3a1b983c6b13ff32bd5af956202345d1f04d1e8",
+      "upstream": "hms/vocoder/builtin.py",
+      "upstream_sha256": "7ea0ccb3fa6542938a754556b93c81b355de1d9550fd899dcaee1251cdad3b0f"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.features",
+        "hms.vocoder",
+        "hms.vocoder.base",
+        "hms.vocoder.builtin"
+      ],
+      "local": "src/hmvc/engine/vocoder/mlsa.py",
+      "local_sha256": "5b0968858fd75c799c17ff7d77c7db6105a598ff2f3c0b91f88bfaf02ea401c7",
+      "upstream": "hms/vocoder/mlsa.py",
+      "upstream_sha256": "8de598721f9e35eb7771330b9af657d04b308f145211fc2c7b2c4465de697148"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.features",
+        "hms.vocoder",
+        "hms.vocoder.base"
+      ],
+      "local": "src/hmvc/engine/vocoder/pyworld_backend.py",
+      "local_sha256": "582481164e6a98a3aba3f70098b4d11af3acb59eb09fce7bba5e6fd90ad1e912",
+      "upstream": "hms/vocoder/pyworld_backend.py",
+      "upstream_sha256": "7e733d70d4204e576f15039fdef39aab7c83faf42d57bc8f93783a330523389c"
+    },
+    {
+      "category": "engine",
+      "internal_imports_including_deferred": [
+        "hms",
+        "hms.core.dsp",
+        "hms.core.features",
+        "hms.vocoder",
+        "hms.vocoder.base"
+      ],
+      "local": "src/hmvc/engine/vocoder/world_native.py",
+      "local_sha256": "da2e1c5965cd6a73da0fc8d54266632e22fafe6ef207a53ec5ff82cdc089f2d1",
+      "upstream": "hms/vocoder/world_native.py",
+      "upstream_sha256": "da369b570b34c5de14cf66f0f679546c8039bc4bf392587ce208ea364f8a486a"
+    },
+    {
+      "category": "test-only synthetic fixture generator",
+      "local": "tests/_support/demo_singer.py",
+      "local_sha256": "b1eaa4b3f1d59e94cdd52bc837ba7054cb826e2b33868a6583cc637d651fad9f",
+      "upstream": "hms/data/demo_singer.py",
+      "upstream_sha256": "ed15b0935b60469b2c6b52a8b793c93d88bdbbd2179e8b1221121d58d1c51f50"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/__init__.py",
+      "local_sha256": "32e55ae8e31789d79176f1fcb73b8e00cac6d1375358202061334614a70c6b59",
+      "upstream": "hms/tests/__init__.py",
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/conftest.py",
+      "local_sha256": "78a9485412dfc2fd6b13691f1823c3e2d436c1d477f2e4ee5fd953c9b0f1a32c",
+      "upstream": "hms/tests/conftest.py",
+      "upstream_sha256": "8e207e793cefa011b42bd7abb3fe3c364285950063567158500087e5254074e2"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_context.py",
+      "local_sha256": "9e6f468369d258f3420b38e50ebb54718e54b8f9895766485e147d93720f2b4a",
+      "upstream": "hms/tests/test_context.py",
+      "upstream_sha256": "20b86063bee8b8780d3f88afbfb5b6097d18c55dcc8c5408b45dcfed11a46a0a"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_external_f0.py",
+      "local_sha256": "40b5d5eaad34244cedc68f1f88298235f7a19a54acbe2bfdec9a8fffcdeeb868",
+      "upstream": "hms/tests/test_external_f0.py",
+      "upstream_sha256": "0e100fcaa003f95f52a6c44847060f7eab3a769ba4fa126a58f0f965bc8bc048"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_f0_range.py",
+      "local_sha256": "2fa84f1db57aaef3aea1d8506cbb4798dccd35f20c2163db9061a19117b92209",
+      "upstream": "hms/tests/test_f0_range.py",
+      "upstream_sha256": "0bedca54b133f9437d29d3922ef1121fc392a2d627adc4d9c40b92d376dcc3fb"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_features.py",
+      "local_sha256": "e49903a313aeaa961f62c8b600acde0b5d16db419a8f8d4ceb648d79c95dd272",
+      "upstream": "hms/tests/test_features.py",
+      "upstream_sha256": "384a672d0f2e96975da1ca27f31e991487db226506f026771bf375517384c7db"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_generation.py",
+      "local_sha256": "d21bffb43e92fe175c15122d9e4362087b5276452b18f337cc99eacc37052327",
+      "upstream": "hms/tests/test_generation.py",
+      "upstream_sha256": "74aeb8d175ec5d676f513af2449c7d442c8de195cdd35e23b32f137a180a4f4c"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_gm.py",
+      "local_sha256": "74867e7e2af02b14c98eabaf6ee9a6fd4895b0dac981701b6ed34c5a53e2727f",
+      "upstream": "hms/tests/test_gm.py",
+      "upstream_sha256": "1055400a60720ca7cac4a298a02fca22d829e8581590c49c1005db37e3f12961"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_gmm.py",
+      "local_sha256": "70bbd38e5eaa1a7ff71c34173599ddabdbdb01d552d41816515bb77fb35b3d78",
+      "upstream": "hms/tests/test_gmm.py",
+      "upstream_sha256": "c023fe669771464a76f8a3351d4f74d93637a7d52e3235dc1d6af4f3e91cff34"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_gv.py",
+      "local_sha256": "0a37b77a74aa6f77d221956d830123cabf85da0b48b1664bcf4c11d7a995842b",
+      "upstream": "hms/tests/test_gv.py",
+      "upstream_sha256": "1f5c171cbbbc47a6fd64874b50338c60439319083f1c65723d04cc7e25ffd3e2"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_hmm.py",
+      "local_sha256": "83895533ead0762daf3ac570c9b24b51ad6ab818c83d007fa08925c76c420285",
+      "upstream": "hms/tests/test_hmm.py",
+      "upstream_sha256": "e2846f76553db711e19244783fa9a46456ec2db7bb20282c52db2dbbd3e22738"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_hmm_training_equivalence.py",
+      "local_sha256": "2b01b56caf520589d2e0dfc35af4f43511f80b873763297e7a24b147d3b5c02d",
+      "upstream": "hms/tests/test_hmm_training_equivalence.py",
+      "upstream_sha256": "790ab55ae462dff5d6c70479977b2e728da8f9b844e0a31542b6faa40135c91e"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_hmm_viterbi.py",
+      "local_sha256": "041f5040ce31c6a52747ae6d13a55b5d46f22a0d09818757e3d6acc6bd2e4004",
+      "upstream": "hms/tests/test_hmm_viterbi.py",
+      "upstream_sha256": "0acb583056b518b32cbcf4ffc7087fcac96ff8ebe90bdf00fade7a6a36803fcd"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_labels.py",
+      "local_sha256": "9ced7b592b9abee52535ac507cbd1f0a43ab873c883d298e0a9dabc1f79f5b5e",
+      "upstream": "hms/tests/test_labels.py",
+      "upstream_sha256": "4b24c1a692ffcd6feb4aba62021ea678fa7757c167ccec1365d3b01631400c9f"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_mlsa.py",
+      "local_sha256": "7ab2df2c4f47801f17c23402ae30f4007a3a69b2d7a03e343bb53e7f04b6bd11",
+      "upstream": "hms/tests/test_mlsa.py",
+      "upstream_sha256": "47ce4e8e80cf34fc8d2c8ddad0f707ca3521fd124cfb721f9c2976feaec3ea34"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_model.py",
+      "local_sha256": "c1210e6fa7a024eb4f99d01951ce7589ac7cb83338eaedf46c4d07a950cd619c",
+      "upstream": "hms/tests/test_model.py",
+      "upstream_sha256": "3105b8166ca69728edec90cf0e32dd30b7443f4e8e8439b59d69e9e7e956a58c"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_pitch_conditioning.py",
+      "local_sha256": "23ee19a654f9be6990332d87b15cb33439d6a499d3b6bafc3b33b4aae5d5778b",
+      "upstream": "hms/tests/test_pitch_conditioning.py",
+      "upstream_sha256": "6f83ade47948936e69fa3d3984c213e87d6fa5fc4da396d757860958c416da00"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_pitch_duration.py",
+      "local_sha256": "d7c377612de72b7462a4ada6fc38cb2a3cb92de88a3790323c6d82c4a6b0413d",
+      "upstream": "hms/tests/test_pitch_duration.py",
+      "upstream_sha256": "05f2d062551a90e7a4aa01b363c57720e140fd7d9dba94c243e518820e682738"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_source_cycles.py",
+      "local_sha256": "6cc3a3467cd67e9b207f599642bccb5779932f32eef22d1fb0c406cc6bdd1303",
+      "upstream": "hms/tests/test_source_cycles.py",
+      "upstream_sha256": "3cad4a02f054d4ab77a754d292a193cdc45e865f9fe9c2949504cc8981e471da"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_source_hmm.py",
+      "local_sha256": "9d1a842652ea4ba5c32040d6fdd030d286a60829c98aeacf09b9937e836ecb26",
+      "upstream": "hms/tests/test_source_hmm.py",
+      "upstream_sha256": "339c051320208f934d56c541f6f3809a4f4fe50e1c9bf2d56eff979d236b22f9"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_source_model.py",
+      "local_sha256": "034988521d527ad7876c8c70f07baf91d85db8ba86a81ba3f29022ac35bcf75e",
+      "upstream": "hms/tests/test_source_model.py",
+      "upstream_sha256": "1bf41441686e17c6b0e31a7217bc670043d93accb32b41158c6e57df22c6f65d"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_source_pca.py",
+      "local_sha256": "e21840f7709fd51a867ebaccb66cfca345787b346e06b1519066aae4d6c3a7cf",
+      "upstream": "hms/tests/test_source_pca.py",
+      "upstream_sha256": "367fa9881e2cf6d4f9d8733a3b8f78a9d0132d711f2c9da24df26c6dcf137e63"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_source_synthesis.py",
+      "local_sha256": "c0bee196bf6b9fb4f3eaabeba652982dbefed55351cf91a566e1364823aad1ba",
+      "upstream": "hms/tests/test_source_synthesis.py",
+      "upstream_sha256": "c98a78b6ebc3bb882e3fbcb4a6284ec20c39051d99ef7d404d9cf5393c2d1b96"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_synthesis.py",
+      "local_sha256": "c849f92a138ae5fab9fb5f1451e08071c13218ab12714c211b265fd65a6e0686",
+      "upstream": "hms/tests/test_synthesis.py",
+      "upstream_sha256": "a114c77501cdf4482dfe59ed3c11ea32411f57e77deda835fc104252c8d59a95"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_trainer.py",
+      "local_sha256": "c46180baad021b60b0d9b9eec888b5b643fcac7a59d8ce8806160756a306b6ad",
+      "upstream": "hms/tests/test_trainer.py",
+      "upstream_sha256": "e1b723560c396ed2d28726e6d06492682ff06d482e02cc32e57855b3705d54a2"
+    },
+    {
+      "category": "ported upstream tests",
+      "local": "tests/upstream/test_vocoder.py",
+      "local_sha256": "29499084a816110697a87f744508f8836cf56954516a88cf4ff315a079eb26e3",
+      "upstream": "hms/tests/test_vocoder.py",
+      "upstream_sha256": "bf3a1aa8c3a43037ee52ca4040846e0cc9bb304b1d99dd360cd96e9ad68d4c5f"
+    }
+  ],
+  "namespace": "hmvc.engine",
+  "omitted_tests_and_helpers": {
+    "hms/tests/test_cli.py": [
+      "test_version_flag_exits_cleanly",
+      "test_doctor_reports_backends",
+      "test_extract_train_inspect_synth",
+      "test_synth_cli_honours_frame_based_score_times",
+      "test_synth_cli_honours_an_external_f0_file",
+      "test_synth_cli_reports_an_f0_file_of_the_wrong_length",
+      "test_synth_unknown_utterance_is_reported",
+      "test_extract_reports_label_diagnostics",
+      "test_synth_cli_reports_invalid_midi_score_notes",
+      "test_synth_cli_warns_about_score_notes_above_the_f0_range",
+      "test_missing_model_is_a_clean_error",
+      "test_unknown_command_is_rejected"
+    ],
+    "hms/tests/test_context.py": [
+      "test_cli_no_context_flag_overrides_enabled_config",
+      "test_cli_train_context_flag_and_inspection",
+      "test_context_section_of_parameters_yaml_is_loaded",
+      "test_unknown_context_option_is_rejected"
+    ],
+    "hms/tests/test_evaluate.py": [
+      "test_identical_models_are_fully_compatible",
+      "test_feature_spec_mismatch_is_an_error",
+      "test_seed_method_paths_and_inventory_mismatches_are_warnings",
+      "test_context_settings_do_not_warn",
+      "test_evaluate_models_reports_separate_objective_metrics",
+      "test_evaluate_models_is_deterministic",
+      "test_evaluate_models_compares_baseline_and_context_models",
+      "test_cli_evaluate_smoke",
+      "test_cli_evaluate_compares_two_models",
+      "test_cli_evaluate_refuses_mismatched_feature_specs",
+      "test_evaluate_models_uses_recorded_time_unit_frames",
+      "test_cli_evaluate_uses_recorded_time_unit_frames",
+      "test_cli_evaluate_time_unit_falls_back_to_parameters_yaml"
+    ],
+    "hms/tests/test_gm.py": [
+      "_cli_params",
+      "test_gm_cli_flag_changes_envelope",
+      "test_gm_cli_requires_model_statistics",
+      "test_gm_cli_strength_zero_equals_off",
+      "test_gm_cli_yaml_and_flag_overrides"
+    ],
+    "hms/tests/test_gv.py": [
+      "test_gv_cli_yaml_and_flag_overrides"
+    ],
+    "hms/tests/test_minimal_example.py": [
+      "test_minimal_example"
+    ],
+    "hms/tests/test_pitch_conditioning.py": [
+      "test_bundled_parameters_keep_pitch_conditioning_disabled",
+      "test_cli_no_pitch_conditioning_flag_overrides_enabled_config",
+      "test_cli_pitch_bin_size_flag",
+      "test_cli_rejects_an_invalid_bin_size",
+      "test_cli_train_pitch_conditioning_flag_and_inspection",
+      "test_evaluate_reports_pitch_conditioned_frames",
+      "test_pitch_conditioning_section_of_parameters_yaml_is_loaded",
+      "test_pitch_conditioning_settings_do_not_warn_in_evaluation",
+      "test_unknown_pitch_conditioning_option_is_rejected"
+    ],
+    "hms/tests/test_trainer.py": [
+      "test_duration_variation_setting_is_loaded_and_round_trips"
+    ]
+  },
+  "python_engine_files": 35,
+  "repository": "https://github.com/aaiauea/hidden-markov-singer",
+  "revision": "ba1eac18146f017f8cc3cae6acdb7963b8f4149e",
+  "roots": [
+    "hms.core.synthesizer",
+    "hms.core.trainer"
+  ],
+  "runtime_depends_on_hms": false,
+  "upstream_engine_version": "0.1.0"
+}

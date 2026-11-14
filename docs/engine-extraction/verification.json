@@ -1,0 +1,181 @@
+{
+  "additional_runtime_only_check": "runtime-wheel.json: wheel + NumPy + PyYAML; no pytest or hms installed",
+  "environment": {
+    "distributions": {
+      "PyYAML": "6.0.3",
+      "hidden-markov-voice-conversion": "0.0.0",
+      "hms": null,
+      "librosa": null,
+      "numpy": "2.4.6",
+      "pytest": "9.2.0",
+      "pyworld": null,
+      "scipy": null,
+      "torch": null
+    },
+    "engine_origin": "/home/user/hidden-markov-voice-conversion/.cache/hmvc-wheel-tests/lib/python3.11/site-packages/hmvc/engine/__init__.py",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "python": "3.11.2"
+  },
+  "full_suite": {
+    "collected": 815,
+    "command": "env PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /home/user/hidden-markov-voice-conversion/.cache/hmvc-wheel-tests/bin/python -I -B -m pytest /home/user/hidden-markov-voice-conversion/tests --rootdir=/home/user/hidden-markov-voice-conversion -q -p no:cacheprovider --basetemp=/home/user/hidden-markov-voice-conversion/.cache/hmvc-wheel-all-tmp --junitxml=/home/user/hidden-markov-voice-conversion/.cache/hmvc-wheel-all.xml",
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "groups": {
+      "new": {
+        "passed": 63
+      },
+      "ported_upstream": {
+        "passed": 743,
+        "skipped": 9
+      }
+    },
+    "passed": 806,
+    "provenance": "Actual installed-wheel pytest JUnit XML, not inferred from imports",
+    "seconds": 43.233,
+    "skipped": [
+      {
+        "reason": "native WORLD backend unavailable",
+        "test": "tests.upstream.test_mlsa::test_synthesised_audio_reanalyses_to_the_requested_pitch"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_analysis_geometry"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_synthesis_length_matches_the_analysis"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_analysis_synthesis_roundtrip_preserves_pitch"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_native_synthesize_matches_the_raw_c_call_sample_for_sample"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_unvoiced_frames_stay_unvoiced"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_flat_pitch_track_is_synthesised_at_the_requested_frequency"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_frame_geometry_helpers"
+      },
+      {
+        "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `vocoder/_native/build_world.sh` (needs a C++ compiler).",
+        "test": "tests.upstream.test_vocoder::test_params_files_roundtrip"
+      }
+    ],
+    "timestamp_utc": "2026-11-14T11:32:16.767939+00:00",
+    "working_directory": "/home/user/hidden-markov-voice-conversion/.cache/engine-wheel-run"
+  },
+  "hms_revision": "ba1eac18146f017f8cc3cae6acdb7963b8f4149e",
+  "not_verified": [
+    "Real native WORLD execution/build",
+    "pyworld execution",
+    "Other Python/OS/dependency versions",
+    "Real-voice conversion or perceptual audio quality"
+  ],
+  "original_hms_pristine_after_all_operations": true,
+  "reference_parity": {
+    "arrays_per_full_pass": 112,
+    "cases": {
+      "acoustic_f0": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "builtin": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "external_f0": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "gm": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "gv": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "mlsa": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "model_duration": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 138,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 11040
+      },
+      "source_builtin": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 16,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "source_mlsa": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 16,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      },
+      "state_f0": {
+        "all_arrays_byte_identical_in_this_environment": true,
+        "arrays": 10,
+        "frames": 152,
+        "max_absolute_numeric_difference": 0.0,
+        "samples": 12160
+      }
+    },
+    "note": "Byte equality and zero numeric differences observed on this environment; not a portability guarantee",
+    "tolerances": {
+      "atol": 1e-12,
+      "equal_nan": true,
+      "rtol": 1e-10
+    }
+  },
+  "scope": "Self-contained engine extraction/bootstrap only; no HMVC-specific synthesis changes",
+  "standalone_wheel": {
+    "bytes": 219179,
+    "contains_default_phonemes": true,
+    "contains_hms_mit_notice": true,
+    "contains_hms_or_tests_or_cli_or_demo": false,
+    "contains_native_support": true,
+    "contains_provenance": true,
+    "engine_python_files": 35,
+    "filename": "hidden_markov_voice_conversion-0.0.0-py3-none-any.whl",
+    "pip_check": "No broken requirements found",
+    "python_files": 36,
+    "sha256": "49768431ae0af558adbda331118819d0c7487743b36c7c0bc81cb22556732e94"
+  }
+}
