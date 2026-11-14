@@ -1,0 +1,16 @@
+# Local audit checkouts/environments, Python caches, and packaging products.
+.cache/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+
+# Optional native build products; no WORLD sources/binaries are vendored.
+src/hmvc/engine/vocoder/_native/World/
+src/hmvc/engine/vocoder/_native/*.so
+src/hmvc/engine/vocoder/_native/*.dylib
+src/hmvc/engine/vocoder/_native/*.dll

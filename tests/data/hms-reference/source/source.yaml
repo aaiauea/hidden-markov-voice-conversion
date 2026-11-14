@@ -1,0 +1,273 @@
+format: hms.source.hmm
+format_version: 1
+name: tiny-source
+source_backend: voice
+source_geometry:
+  fs: 16000
+  frame_period: 5.0
+  cycle_length: 64
+  unit_frames: 1
+  f0_floor: 50.0
+  f0_ceil: 2000.0
+feature_spec:
+  fs: 16000
+  frame_period: 5.0
+  fft_size: 1024
+  n_mcep: 20
+  n_band: 5
+  use_delta: true
+  use_delta2: false
+  f0_ref_hz: 261.6255653005986
+  f0_floor: 71.0
+  f0_ceil: 800.0
+  pitch_bins_per_semitone: 8
+  voiced_threshold: 5.0
+  mcep_f_min: 0.0
+  f0_estimation: dio
+  refine_f0: true
+  delta_window: 2
+phonemes:
+  silence: sil
+  defaults:
+    vowel:
+      n_states: 5
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    voiced_consonant:
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+    unvoiced_consonant:
+      n_states: 2
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    silence:
+      n_states: 1
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+  aliases:
+    pau: sil
+    _: sil
+    S: s
+    sh: s
+    x: k
+    b: p
+    d: t
+    g: k
+    c: k
+    j: z
+    w: u
+    y: i
+    A: a
+    E: e
+    I: i
+    O: o
+    U: u
+  phonemes:
+    a:
+      type: vowel
+      n_states: 5
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    e:
+      type: vowel
+      n_states: 5
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    f:
+      type: unvoiced_consonant
+      n_states: 2
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    h:
+      type: unvoiced_consonant
+      n_states: 1
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    i:
+      type: vowel
+      n_states: 5
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    k:
+      type: unvoiced_consonant
+      n_states: 2
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    l:
+      type: voiced_consonant
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+    m:
+      type: voiced_consonant
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+    n:
+      type: voiced_consonant
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+    o:
+      type: vowel
+      n_states: 5
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    p:
+      type: unvoiced_consonant
+      n_states: 2
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    r:
+      type: voiced_consonant
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+    s:
+      type: unvoiced_consonant
+      n_states: 2
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    sil:
+      type: silence
+      n_states: 1
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    t:
+      type: unvoiced_consonant
+      n_states: 2
+      n_components: 1
+      voiced: false
+      can_hold_note: false
+    u:
+      type: vowel
+      n_states: 5
+      n_components: 2
+      voiced: true
+      can_hold_note: true
+    v:
+      type: voiced_consonant
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+    z:
+      type: voiced_consonant
+      n_states: 3
+      n_components: 1
+      voiced: true
+      can_hold_note: false
+pca_file: source_pca.npz
+hmm_file: source_hmms.npz
+target:
+  coefficient_offset:
+  - 1.449338541833116
+  - 0.48907237525873376
+  coefficient_scale:
+  - 0.7493448794534915
+  - 1.7842359903242224
+  use_delta: true
+  use_delta2: false
+  delta_window: 2
+f0_conditioning:
+  reference_hz: 261.6255653005986
+  voiced_threshold: 5.0
+  mean_semitones: 3.6981482555624337
+  scale_semitones: 3.7409196827773874
+  delta_scale: 0.00844409353009521
+  feature_dim: 3
+  features:
+  - log_f0_semitones
+  - delta_log_f0
+  - voiced_flag
+training:
+  pca_components: 2
+  covariance_type: diag
+  training_method: viterbi
+  n_iterations: 2
+  var_floor_ratio: 0.001
+  seed: 0
+  allow_skip: false
+  min_phone_frames: 4
+  normalize_coefficients: true
+  context_enabled: false
+  context_min_frames: 100
+  context_min_occurrences: 3
+  context_max_models: 64
+  context_partial: true
+  global_backoff: true
+  use_delta: null
+  use_delta2: null
+  delta_window: null
+  f0_regression_ridge: 0.001
+  f0_regression_variance_floor: 1.0e-05
+  source_f0_floor: 50.0
+  source_f0_ceil: 2000.0
+  examples: 4
+  source_frames: 383
+  source_units: 632
+  source_backend: voice
+hmm_index:
+  phones:
+    a:
+      n_states: 5
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+    i:
+      n_states: 5
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+    m:
+      n_states: 3
+      n_components: 1
+      covariance: diag
+      allow_skip: false
+    s:
+      n_states: 2
+      n_components: 1
+      covariance: diag
+      allow_skip: false
+  contexts: {}
+  backoff:
+    unvoiced_consonant:
+      n_states: 2
+      n_components: 1
+      covariance: diag
+      allow_skip: false
+    voiced_consonant:
+      n_states: 3
+      n_components: 1
+      covariance: diag
+      allow_skip: false
+    vowel:
+      n_states: 5
+      n_components: 2
+      covariance: diag
+      allow_skip: false
+context_index: {}
+global_backoff_index:
+  n_states: 3
+  n_components: 1
+  covariance: diag
+  allow_skip: false

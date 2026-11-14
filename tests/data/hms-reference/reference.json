@@ -1,0 +1,238 @@
+{
+  "array_keys": {
+    "acoustic_f0/ap": "6f286ef324dfbd9d3a5eafa05562484a9461bc6d04ed63849bff372fea97b529",
+    "acoustic_f0/audio": "64a1983b102e6f722c533752b6fd1fbfe6a2f17251bf790e2c90e59cc28d0372",
+    "acoustic_f0/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "acoustic_f0/f0": "217f86bbb58e5dba5571bc13568836bfcf634a1d4f49c317528e0924d3814f42",
+    "acoustic_f0/f0_semitones": "6ae28934cc1fec7248f59fb269aaf6cbbf29d2dccb7fe8d305f603d70bd812c2",
+    "acoustic_f0/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "acoustic_f0/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "acoustic_f0/sp": "242978ba551cdac91c10dc9e9ae91bb73e938c204596ba50386703a5099d3ada",
+    "acoustic_f0/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "acoustic_f0/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "builtin/ap": "6f286ef324dfbd9d3a5eafa05562484a9461bc6d04ed63849bff372fea97b529",
+    "builtin/audio": "6e568058423cc725e4931744962223de5032011d7668421ab93518689224fcb0",
+    "builtin/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "builtin/f0": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "builtin/f0_semitones": "a6b6850e3fbe927f44587d010b3a185e2012057cb0f8af914f789b1edc6f58e0",
+    "builtin/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "builtin/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "builtin/sp": "242978ba551cdac91c10dc9e9ae91bb73e938c204596ba50386703a5099d3ada",
+    "builtin/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "builtin/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "external_f0/ap": "6f286ef324dfbd9d3a5eafa05562484a9461bc6d04ed63849bff372fea97b529",
+    "external_f0/audio": "0934dd2716897afc503077b595468c506773e26803babe4da1299a18050da1b2",
+    "external_f0/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "external_f0/f0": "9d786c00f0a5e83debba976dc927e0e00b9ec7ea67f9f69dc0af3add4be3b1d4",
+    "external_f0/f0_semitones": "e55661e7265e8fb76fd221398ff9c9f94d6379c94d7b695329d3437a8ec4c66b",
+    "external_f0/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "external_f0/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "external_f0/sp": "242978ba551cdac91c10dc9e9ae91bb73e938c204596ba50386703a5099d3ada",
+    "external_f0/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "external_f0/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "gm/ap": "a8cb318b3308ea1ff2aafd8c9d8f13fcd0b97e51f43323a7df36de4ae1e1c38c",
+    "gm/audio": "b121a935dc1d788fdb8a50bba16cc38bd5e64cd95455b90625d82f00ea4f5311",
+    "gm/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "gm/f0": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "gm/f0_semitones": "a6b6850e3fbe927f44587d010b3a185e2012057cb0f8af914f789b1edc6f58e0",
+    "gm/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "gm/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "gm/sp": "e80b19dccc366a6fb1d6502f2c5aef26c0336ac901b707b603bd9413c9268876",
+    "gm/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "gm/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "gv/ap": "b36607e7248d33ab4cee6ed769c4086be37f6604613f77f601d7eac87479259a",
+    "gv/audio": "f6d9104b070cfdc8df091bb9a98f7090c16b942febe949a807737bc22861fc32",
+    "gv/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "gv/f0": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "gv/f0_semitones": "a6b6850e3fbe927f44587d010b3a185e2012057cb0f8af914f789b1edc6f58e0",
+    "gv/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "gv/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "gv/sp": "ecfb439c50be58506407c6ccc4a1c8a36437f34f1fd3c0d8782a67a53ee44f48",
+    "gv/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "gv/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "mlsa/ap": "6f286ef324dfbd9d3a5eafa05562484a9461bc6d04ed63849bff372fea97b529",
+    "mlsa/audio": "6256c0cb5bd5067c6ac34d11c12746d6a42f2b378a743639236d0929e3b349e9",
+    "mlsa/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "mlsa/f0": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "mlsa/f0_semitones": "a6b6850e3fbe927f44587d010b3a185e2012057cb0f8af914f789b1edc6f58e0",
+    "mlsa/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "mlsa/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "mlsa/sp": "242978ba551cdac91c10dc9e9ae91bb73e938c204596ba50386703a5099d3ada",
+    "mlsa/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "mlsa/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "model_duration/ap": "d65e53af232f4408f09b35496898e68a552e317cdb172d5d0d724f2349283c6e",
+    "model_duration/audio": "d65b785c6d0790a914b9d40694f45437d10799f02f867a0526de0a8eede8fd20",
+    "model_duration/durations": "d1b12f1747d4fdcead95460170bf6218ae02ca023c7bc8192db2400f266b42f9",
+    "model_duration/f0": "3d0802665fcba9501e2f2d7578063cab758ce40edb8244383109f8a962795f61",
+    "model_duration/f0_semitones": "d93adf8f69dfb654588ea7746a516844967afea7f3d230491f9cb553e130d5da",
+    "model_duration/notes": "e3f18b37f3aa646065396790a45265537b8741f0950154d5b7bee19aa394f21c",
+    "model_duration/phones": "12477f89c15f14576b117a23c70d0c7fbad9ea39953135debac3c1cb3d4c7c8a",
+    "model_duration/sp": "2d70bc7652f5ae50e7a40f363503c4f2cefa55146c69f7cd275221daeba58575",
+    "model_duration/state_ids": "ada0837471ca182b2135052369ca1c00cc89a0515489e29f109083ddd867b483",
+    "model_duration/state_sequence": "324f516e4903a4b2fffa7b9b9edf8d9c77e050100b9f30247506b6c22136a7a1",
+    "source_builtin/ap": "6f286ef324dfbd9d3a5eafa05562484a9461bc6d04ed63849bff372fea97b529",
+    "source_builtin/audio": "6fd49b0ca513585ed62491d4098ef088773e51d5eb1473a7196be0b4c6ca76e3",
+    "source_builtin/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "source_builtin/f0": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "source_builtin/f0_semitones": "a6b6850e3fbe927f44587d010b3a185e2012057cb0f8af914f789b1edc6f58e0",
+    "source_builtin/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "source_builtin/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "source_builtin/source_coverage": "f87577918833585da1dfc7459fc540b33eb02a407e665521b2ee332add632716",
+    "source_builtin/source_excitation": "a1fdc588661b3bb80714a7a1dd0cbc6caa2fd02d94379946929864194d26eca2",
+    "source_builtin/source_f0_hz": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "source_builtin/source_support": "c0483732db3509ac51981839b7ff4013e626536f51686828c3d38fceaedb4a8e",
+    "source_builtin/source_voiced": "8eef4225d58fdc95b9aaa4d5761ae9a9b12ef97466eb3f33f5728c7afde6964f",
+    "source_builtin/source_weights": "30d5a4e10cac82eac3411971fc28192ec112408943aa808df6175ed755050e0a",
+    "source_builtin/sp": "242978ba551cdac91c10dc9e9ae91bb73e938c204596ba50386703a5099d3ada",
+    "source_builtin/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "source_builtin/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "source_mlsa/ap": "6f286ef324dfbd9d3a5eafa05562484a9461bc6d04ed63849bff372fea97b529",
+    "source_mlsa/audio": "460ac2cb8781cc22067f534621ade5a1763ab489cf3736802c3410978749def6",
+    "source_mlsa/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "source_mlsa/f0": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "source_mlsa/f0_semitones": "a6b6850e3fbe927f44587d010b3a185e2012057cb0f8af914f789b1edc6f58e0",
+    "source_mlsa/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "source_mlsa/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "source_mlsa/source_coverage": "f87577918833585da1dfc7459fc540b33eb02a407e665521b2ee332add632716",
+    "source_mlsa/source_excitation": "a1fdc588661b3bb80714a7a1dd0cbc6caa2fd02d94379946929864194d26eca2",
+    "source_mlsa/source_f0_hz": "fd8b1a2c270de7ce04a109b16efb3a1b90415db8323f3e533665f6b344799c14",
+    "source_mlsa/source_support": "c0483732db3509ac51981839b7ff4013e626536f51686828c3d38fceaedb4a8e",
+    "source_mlsa/source_voiced": "8eef4225d58fdc95b9aaa4d5761ae9a9b12ef97466eb3f33f5728c7afde6964f",
+    "source_mlsa/source_weights": "30d5a4e10cac82eac3411971fc28192ec112408943aa808df6175ed755050e0a",
+    "source_mlsa/sp": "242978ba551cdac91c10dc9e9ae91bb73e938c204596ba50386703a5099d3ada",
+    "source_mlsa/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "source_mlsa/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8",
+    "state_f0/ap": "6f286ef324dfbd9d3a5eafa05562484a9461bc6d04ed63849bff372fea97b529",
+    "state_f0/audio": "06a4c14187f996312d0d40aca9ee8edfc3f457913c2903eaa34ca3d40060a34a",
+    "state_f0/durations": "bf7ae758e6c88bbdae2b891535b2d8450df0f3599b0f200f6e7bc517f9842a64",
+    "state_f0/f0": "d2b358a29b3427a05a0e747a6d248839067c54393f4143ebb684a06ac2ffac90",
+    "state_f0/f0_semitones": "1dc23684e1421553981fad273e013b7e259255fa527f4223e1e720411117c4e9",
+    "state_f0/notes": "4a9fd6d8e37b68be7956d806184e527b1c8f4c98de3d869450bd9a1985b6b1d2",
+    "state_f0/phones": "0b8561b9c6c18f7794198c4dc995d51686c6e81d3ba12c60e13ecc3056e563c6",
+    "state_f0/sp": "242978ba551cdac91c10dc9e9ae91bb73e938c204596ba50386703a5099d3ada",
+    "state_f0/state_ids": "b11e89be02ebab94fe25a2bc68e1db42def72b4cd09499304cd0ec4ad24fc86d",
+    "state_f0/state_sequence": "aca1067b41c3086f051fb5f4bda2ac598baaf0585ee601bc4f814bf7e514cff8"
+  },
+  "cases": {
+    "acoustic_f0": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 0
+    },
+    "builtin": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 0
+    },
+    "external_f0": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model",
+        "external F0 override: 152 frame(s) supplied by the caller (120 voiced)"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 0
+    },
+    "gm": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 0
+    },
+    "gv": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 0
+    },
+    "mlsa": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 0
+    },
+    "model_duration": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 109 frame(s) rendered from a pitch-conditioned model"
+      ],
+      "frames": 138,
+      "samples": 11040,
+      "source_units": 0
+    },
+    "source_builtin": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model",
+        "source-aware synthesis: 194 learned voice unit(s) covering 77.7 % of 12160 sample(s) and 118/120 voiced frame(s)",
+        "source excitation: calibrated by 1.000 to unit RMS (measured 1.000); source_gain=1 is applied on top, the acoustic envelope and aperiodicity still own loudness"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 194
+    },
+    "source_mlsa": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model",
+        "source-aware synthesis: 194 learned voice unit(s) covering 77.7 % of 12160 sample(s) and 118/120 voiced frame(s)",
+        "source excitation: calibrated by 1.000 to unit RMS (measured 1.000); source_gain=1 is applied on top, the acoustic envelope and aperiodicity still own loudness"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 194
+    },
+    "state_f0": {
+      "diagnostics": [
+        "pitch conditioning (bins of 6 semitones): 120 frame(s) rendered from a pitch-conditioned model"
+      ],
+      "frames": 152,
+      "samples": 12160,
+      "source_units": 0
+    }
+  },
+  "distributions": {
+    "PyYAML": "6.0.3",
+    "numpy": "2.4.6",
+    "pytest": "9.2.0"
+  },
+  "files_sha256": {
+    "acoustic/backoff.npz": "78c5b6ea33d3e02f347179e007572c9b31f6304a4b3024b900dce4a4c0ee6225",
+    "acoustic/context.npz": "31e87b44119ba3082971f6a1e613aecd908c20a47198d1921a7a314ea420bf6a",
+    "acoustic/hmm.npz": "a1aa22637401bbc20c99b15964ab38676d02256873f575faca36514b3f6c59b1",
+    "acoustic/model.yaml": "0a702f2259f5ab446822eb1846fa6b7300b5c3ca87446b12035a07ad9115dc32",
+    "acoustic/pitch.npz": "68b7af39f4973bdc0c05154b41272ab2fcbb87e78bfa2188f384875e5ee1b08b",
+    "renders.npz": "215cb60cb202ba6128df95a4051702ebb9c9066b0de589a33a2c007e28584627",
+    "source/source.yaml": "bb8dcff236a391d55050abc3c6db85141bc39f490afe928ed3e8e93a2960eacf",
+    "source/source_hmms.npz": "0ed10ceec9d70d75371d3d5183e9677a63ce8fc483eef75c3adcfb1597c0c0ad",
+    "source/source_pca.npz": "b49db4b22903c8be1c03b77d1ce0b9065b2f6af7951c31fe43eeb7be476da4d7"
+  },
+  "fixture_code_sha256": "5d27fb07afd57beefad18a4ff6ec0b35167fd854ca874f53847a5b308c0eae09",
+  "generated_at_utc": "2026-11-14T11:29:46.170443+00:00",
+  "hmvc_imported_during_generation": false,
+  "normalization": "Only model name, creation date, and input-path metadata normalized; predictive parameters untouched",
+  "python": "3.11.2",
+  "repository": "https://github.com/aaiauea/hidden-markov-singer",
+  "revision": "ba1eac18146f017f8cc3cae6acdb7963b8f4149e",
+  "source_unchanged": true,
+  "training": {
+    "contexts": 16,
+    "global_variance": true,
+    "phones": [
+      "a",
+      "i",
+      "s",
+      "sil"
+    ],
+    "pitch_models": 18
+  }
+}

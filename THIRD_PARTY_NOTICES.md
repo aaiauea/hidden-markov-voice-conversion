@@ -1,0 +1,46 @@
+# Third-party source attribution
+
+## Hidden Markov Singer (HMS)
+
+- Project: https://github.com/aaiauea/hidden-markov-singer
+- Revision: `ba1eac18146f017f8cc3cae6acdb7963b8f4149e` (engine version 0.1.0).
+- Author/copyright holder: aaiauea, 2026.
+- License: MIT (verbatim below and in `hmvc/engine/LICENSE.hms`).
+- Selected engine sources were adapted into `src/hmvc/engine`; applicable
+  regression tests and a synthetic fixture generator are test-only.
+- `hmvc.engine.UPSTREAM.json` records each source path/hash, adaptations, the
+  import dependency closure, and omitted non-engine tests. No external HMS
+  installation/checkouts are required at runtime or to run ordinary tests.
+
+The optional C ABI shim and build helper are HMS source under this notice.
+They reference WORLD (https://github.com/mmorise/World), a separate
+BSD-3-Clause work. WORLD source/binaries and pyworld are **not** bundled or
+required. Review/preserve their notices separately before an optional native
+build or redistribution. NumPy and PyYAML retain their own licenses.
+No recorded voice, voicebank, pretrained model, or corpus is transferred.
+
+### HMS MIT license (verbatim)
+
+```text
+MIT License
+
+Copyright (c) 2026 aaiauea
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

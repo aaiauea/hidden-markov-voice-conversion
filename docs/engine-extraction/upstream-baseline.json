@@ -1,0 +1,65 @@
+{
+  "collected": 798,
+  "command": "env PYTHONDONTWRITEBYTECODE=1 HMS_NO_AUTO_BUILD=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .cache/hms-audit/venv/bin/python -B -m pytest .cache/hms-audit/upstream/hms/tests -q -ra -p no:cacheprovider --basetemp=.cache/hms-audit/pytest-tmp --junitxml=.cache/hms-audit/upstream-junit.xml",
+  "environment": {
+    "distributions": {
+      "PyYAML": "6.0.3",
+      "iniconfig": "2.3.1",
+      "numpy": "2.4.6",
+      "packaging": "26.3",
+      "pluggy": "1.7.0",
+      "pygments": "2.21.0",
+      "pytest": "9.2.0"
+    },
+    "python": "3.11.2"
+  },
+  "errors": 0,
+  "exit_code": 0,
+  "failures": 0,
+  "hms_revision": "ba1eac18146f017f8cc3cae6acdb7963b8f4149e",
+  "hms_source_status_after": "",
+  "hms_url": "https://github.com/aaiauea/hidden-markov-singer",
+  "junit_timestamp_utc": "2026-11-14T11:07:35.639370+00:00",
+  "passed": 789,
+  "provenance": "Counts and skip reasons extracted from the actual pytest JUnit XML; raw transient XML and fixtures are not vendored",
+  "scope": "Unchanged upstream HMS regression suite; successful HMS execution, NOT HMVC production integration",
+  "seconds": 43.889,
+  "skipped": [
+    {
+      "reason": "native WORLD backend unavailable",
+      "test": "hms.tests.test_mlsa::test_synthesised_audio_reanalyses_to_the_requested_pitch"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_analysis_geometry"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_synthesis_length_matches_the_analysis"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_analysis_synthesis_roundtrip_preserves_pitch"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_native_synthesize_matches_the_raw_c_call_sample_for_sample"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_unvoiced_frames_stay_unvoiced"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_flat_pitch_track_is_synthesised_at_the_requested_frequency"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_frame_geometry_helpers"
+    },
+    {
+      "reason": "native WORLD backend unavailable: libhms_world.so not found. Build it with `tools/build_world.sh` (needs a C++ compiler).",
+      "test": "hms.tests.test_vocoder::test_params_files_roundtrip"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "all_arrays_byte_identical_in_this_environment": true,
+  "case": "original model -> save -> reload -> MLSA + learned source -> PCM16 read/write",
+  "distributions": {
+    "PyYAML": "6.0.3",
+    "hidden-markov-voice-conversion": "0.0.0",
+    "hms": null,
+    "librosa": null,
+    "numpy": "2.4.6",
+    "pytest": null,
+    "pyworld": null,
+    "scipy": null,
+    "torch": null
+  },
+  "engine_origin": "/home/user/hidden-markov-voice-conversion/.cache/hms-audit/minimal-venv/lib/python3.11/site-packages/hmvc/engine/__init__.py",
+  "frames": 152,
+  "fs": 16000,
+  "hms_modules_loaded": [],
+  "max_absolute_numeric_difference": 0.0,
+  "reference_arrays_compared": 16,
+  "samples": 12160,
+  "scope": "Extracted engine only; no HMVC conversion features",
+  "source_units": 194,
+  "status": "executed_and_integrated"
+}
