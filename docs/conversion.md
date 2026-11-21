@@ -4,13 +4,12 @@
 maintained as the phase proceeds; the fidelity appendix at the bottom is
 finalised once the behavioral comparison has been performed.
 
-## 1. Source
+## 1. Reference behavior
 
-- File: `tests/data/conversion-reference/reference-source/voice-converter.js`
-  (the original browser app, preserved byte-for-byte as a reference fixture;
-  its `<script>` body is extracted verbatim by `tools/generate_conversion_reference.js`
-  and never modified).
-- Browser: self-contained single-page app; no external requests. DSP runs at
+The original browser implementation was used as the behavioral reference for
+this port, but its source code and browser wrapper are not retained in this
+repository. The checked-in parity fixtures preserve representative outputs
+from that implementation. The conversion pipeline runs at
   **SR = 22050 Hz**, **N = 1024** (FFT), **H = 256** (analysis hop), **HOP = 320**
   (pitch-tracking hop), **NB = 513** (spectral bins), **D = 12** (DCT features),
   **NM = 34** (mel bands), **LIF = 36** (cepstral lifter order).
@@ -80,7 +79,7 @@ For each conversion (source `x`, optional target `t`):
 
 ## 3. Component → module mapping
 
-| Original (JS) | HMVC port module |
+| Original routine | HMVC port module |
 |---|---|
 | `decode()` / `wav()` | `hmvc.conversion.wavio` (`encode_wav`, `write_wav`); audio loading via `hmvc.features.audio` |
 | constants | `hmvc.conversion.constants` |
@@ -128,21 +127,9 @@ is **not** used by this port.
 
 ## 5. Known discrepancies (documented, not fixed)
 
-These are deliberate — behavior is preserved from the HTML, not corrected.
+These are deliberate — behavior is preserved from the original reference, not corrected.
 
-### 5.1 Harness vs port (test fixture tooling, not shipped code)
-- Harness LCG (`tools/generate_conversion_reference.js`): the original used the
-  *default* seed 42 and a single `Math.random()`-style generator throughout.
-  The harness was intentionally re-pinned to match the port exactly:
-  `LcgRandom(1234)` with `MULT = 0x5851f42d4c957f2d`,
-  `INC = 0x14057b7ef767814f`, `float(state>>11)/2^53`. All reference diffs are
-  therefore 0.0 (max abs = 0.0 over samples, ratio, f0, vo, nfr, db).
-- `feat()` mel-band means are float32 native (not float64 means cast down);
-  reproducing this in the harness removed the remaining voc 2.83e-07 diff.
-- FFT store-back: inverse FFT accumulates into float32 buffers per-stage
-  (the same pattern the original uses).
-
-### 5.2 Port behavior changes to replicate the HTML faithfully
+### 5.1 Port behavior changes to replicate the original behavior faithfully
 - Database memoization: the pipeline caches a built target DB keyed by
   `(target_len, fmin, fmax, t[mid])`. On a cache hit, retrieval is skipped
   silently (no progress events). This matches the original's browser-session
@@ -154,11 +141,11 @@ These are deliberate — behavior is preserved from the HTML, not corrected.
   (`js_log`, `js_exp`, `js_round`) rather than re-raising on degenerate
   values: `log(0) = -inf`, `log(negative) = NaN`, `exp` overflows to
   `Infinity`, `round` = floor(x + 0.5). The original relies on all of this;
-  the port returns NaN/-inf exactly like the browser.
+  the port returns NaN/-inf exactly like the reference implementation.
 - `grain.py` re-associates `(w * gn)` → `(t[a_abs] * w) * gn` (pure
   re-association; bit-for-bit identical — the trunk sum is unchanged).
 
-### 5.3 Structural differences (no behavioral change)
+### 5.2 Structural differences (no behavioral change)
 - The CLI, WAV I/O and `conversion.__main__` are new. The original is a
   browser app with no CLI; equivalent behavior is exposed as
   `python -m hmvc conversion <source> [--target target.wav] [--mode voc]
@@ -169,8 +156,8 @@ These are deliberate — behavior is preserved from the HTML, not corrected.
   `hmvc.features.audio` (resample to 22050 Hz). Slicing/clamping/peak
   normalization are identical.
 - TD-PSOLA `js_round` semantics use `floor(x + 0.5)` (JS round), and the
-  pipeline's final peak-normalization clamps NaN → 0, exactly as the original.
+  pipeline's final peak-normalization clamps NaN → 0, exactly as the reference implementation.
 
-### 5.4 Out of scope
+### 5.3 Out of scope
 - Env/grain/vocoder output is not quality-improved; the buzzy envelope,
   smooth-vocoder and grain-overlap-add artifacts are preserved by design.
