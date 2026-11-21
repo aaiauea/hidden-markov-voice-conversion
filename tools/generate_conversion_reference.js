@@ -2,10 +2,10 @@
 /**
  * Maintainer-only tool: regenerate the HMVC conversion-reference fixture.
  *
- * Runs the ORIGINAL DSP code from the reference fixture
- * ``tests/data/conversion-reference/reference-source/voice-converter (4).html``
- * (the original browser app, preserved byte-for-byte; its <script> body is
- * extracted verbatim, never modified) in Node on the fixed synthetic source/target
+ * Runs the ORIGINAL DSP code from the standalone JavaScript reference fixture
+ * ``tests/data/conversion-reference/reference-source/voice-converter.js``
+ * (extracted verbatim from the original browser app, without its HTML/UI) in Node
+ * on the fixed synthetic source/target
  * in ``tests/data/conversion-reference/signals.json`` and writes the outputs to
  * ``tests/data/conversion-reference/reference.json``.  The HMVC port is then
  * compared against this fixture (tests/conversion/test_reference.py) without
@@ -15,9 +15,9 @@
  *   node tools/generate_conversion_reference.js
  *
  * The harness:
- *   1. reads the HTML, extracts the <script> body up to the UI section,
- *   2. imports it unmodified into a function scope (the DSP code is never
- *      edited — only two instrumentation assignments inside `vocode`, which
+ *   1. reads the standalone original JavaScript DSP source,
+ *   2. imports it into a function scope (the DSP code is never edited — only
+ *      two instrumentation assignments inside `vocode`, which
  *      capture internal arrays before its original final `return out;` and
  *      right after the per-frame loop, are inserted),
  *   3. monkeypatches Math.random with a deterministic 64-bit LCG (the same
@@ -36,7 +36,7 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const REF_DIR = path.join(ROOT, "tests", "data", "conversion-reference");
-const HTML = path.join(REF_DIR, "reference-source", "voice-converter (4).html");
+const SOURCE = path.join(REF_DIR, "reference-source", "voice-converter.js");
 const SIGNALS = path.join(REF_DIR, "signals.json");
 const OUTPUT = path.join(REF_DIR, "reference.json");
 
@@ -44,14 +44,7 @@ const OUTPUT = path.join(REF_DIR, "reference.json");
 // 1. extracted original JS ---------------------------------------------------
 // ---------------------------------------------------------------------------
 
-const html = fs.readFileSync(HTML, "utf8");
-const scriptStart = html.indexOf("<script>");
-const scriptEnd = html.indexOf("</script>");
-if (scriptStart < 0 || scriptEnd < 0) throw new Error("HTML script block not found");
-let js = html.slice(scriptStart + "<script>".length, scriptEnd);
-const uiMarker = js.indexOf("/* ---------- UI ---------- */");
-if (uiMarker < 0) throw new Error("UI marker not found in extracted script");
-js = js.slice(0, uiMarker);
+let js = fs.readFileSync(SOURCE, "utf8");
 
 for (const fn of ["trackPitch", "fillGaps", "median", "makeMarks", "psola",
                   "analyze", "feat", "cmn", "buildDB", "knn", "grainSynth",
@@ -283,7 +276,7 @@ async function main() {
 
     const reference = {
         generated_by: "tools/generate_conversion_reference.js",
-        source_file: "tests/data/conversion-reference/reference-source/voice-converter (4).html",
+        source_file: "tests/data/conversion-reference/reference-source/voice-converter.js",
         sample_rate: 22050,
         cases: {},
     };
