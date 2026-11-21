@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hidden-markov-voice-conversion"
 version = "0.0.0"
-description = "HMVC Phase 0: self-contained HMS synthesis-engine foundation"
+description = "HMVC: self-contained HMS synthesis engine and classical acoustic feature extraction"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
@@ -16,6 +16,10 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest>=7.0"]
+# Maintainer-only: reference libraries for tools/generate_feature_reference.py
+# and tools/evaluate_features.py (install in a separate environment).  Never
+# imported by hmvc or by the test suite.
+reference = ["pyworld>=0.3.5", "pysptk>=1.0.1", "librosa>=0.11"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
