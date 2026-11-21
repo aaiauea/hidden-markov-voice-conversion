@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111318"><title>HMVC — Browser Demo</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#111318;color:#e8eaf0}*{box-sizing:border-box}body{margin:0;min-height:100vh}main{width:min(760px,100% - 32px);margin:40px auto}h1{font-size:2rem;margin:0}p{color:#aeb4c2}.sub{margin-top:4px}.panel{background:#1a1e27;border:1px solid #303746;border-radius:14px;padding:18px;margin:18px 0}label{display:block;font-size:.9rem;margin:12px 0 6px;color:#cbd0dc}input,select,button{font:inherit}input[type=file],select{width:100%;padding:10px;background:#10131a;border:1px solid #394253;border-radius:8px;color:inherit}input[type=range]{width:100%}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}button{border:0;border-radius:9px;background:#d9e1ff;color:#111827;padding:12px 18px;font-weight:700;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}progress{width:100%;height:10px;accent-color:#b9c9ff}#status{white-space:pre-wrap;color:#b9c9ff;font-size:.9rem}.warning{border-left:3px solid #d6a85e;padding-left:12px}a{color:#c5d2ff}audio{width:100%;margin-top:12px}small{color:#9ba3b4}@media(max-width:520px){.grid{grid-template-columns:1fr}main{margin:24px auto}}
+</style></head><body><main>
+<h1>HMVC</h1><p class="sub">Browser-based voice conversion · experimental</p>
+<section class="panel"><p>Choose a source recording and, optionally, a target voice recording. Conversion runs locally in this browser using HMVC's Python DSP pipeline.</p>
+<p class="warning"><small>First launch downloads Pyodide, NumPy, and HMVC's Python source. It may take a while and use substantial memory. Try short clips first.</small></p>
+<label for="source">Source audio</label><input id="source" type="file" accept="audio/*"><label for="target">Target voice (optional)</label><input id="target" type="file" accept="audio/*">
+<div class="grid"><div><label for="mode">Synthesis mode</label><select id="mode"><option value="voc">Smooth vocoder</option><option value="grain">Grain</option><option value="env">Envelope</option></select></div>
+<div><label for="pitch">Pitch shift: <output id="pitchValue">0</output> semitones</label><input id="pitch" type="range" min="-12" max="12" step=".5" value="0"></div>
+<div><label for="formant">Formant factor: <output id="formantValue">1.00</output></label><input id="formant" type="range" min=".6" max="1.5" step=".01" value="1"></div>
+<div><label for="blend">Target envelope blend: <output id="blendValue">80</output>%</label><input id="blend" type="range" min="0" max="100" step="1" value="80"></div></div>
+<div class="row" style="margin-top:18px"><button id="run" disabled>Load engine…</button><button id="clear" type="button">Clear target cache</button></div>
+<progress id="progress" max="1" value="0"></progress><p id="status">Preparing browser runtime…</p><audio id="preview" controls hidden></audio><p><a id="download" hidden download="hmvc-output.wav">Download converted WAV</a></p></section>
+<p><small>Audio is not uploaded to a conversion server. The browser decodes and resamples audio; HMVC's Python code performs the conversion. JavaScript here is only the browser/API bridge and interface.</small></p><p><a href="https://github.com/aaiauea/hidden-markov-voice-conversion">Source repository</a></p></main>
+<script type="module">
+const $=id=>document.getElementById(id),SR=22050,REPO="https://codeload.github.com/aaiauea/hidden-markov-voice-conversion/zip/refs/heads/main";let pyodide=null,busy=false;
+for(const [id,out,digits] of [["pitch","pitchValue",1],["formant","formantValue",2],["blend","blendValue",0]])$(id).addEventListener("input",()=>$(out).value=Number($(id).value).toFixed(digits));
+function status(s){$("status").textContent=s}function progress(v){$("progress").value=Math.max(0,Math.min(1,v))}
+async function init(){try{status("Loading Pyodide runtime…");const {loadPyodide}=await import("https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.mjs");pyodide=await loadPyodide();status("Loading NumPy…");await pyodide.loadPackage("numpy");status("Fetching HMVC Python source…");const response=await fetch(REPO);if(!response.ok)throw Error("Could not fetch HMVC source archive.");const archive=new Uint8Array(await response.arrayBuffer());pyodide.FS.writeFile("/tmp/hmvc.zip",archive);
+await pyodide.runPythonAsync(`
+import zipfile, os, sys
+with zipfile.ZipFile("/tmp/hmvc.zip") as z:
+    root = z.namelist()[0].split("/")[0] + "/src/hmvc/"
+    os.makedirs("/hmvc_app/hmvc", exist_ok=True)
+    for name in z.namelist():
+        if not name.startswith(root): continue
+        rel = name[len(root):]
+        if not rel or rel.startswith("engine/"): continue
+        if rel.endswith(".py"):
+            dest = "/hmvc_app/hmvc/" + rel
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            with z.open(name) as src, open(dest, "wb") as dst: dst.write(src.read())
+sys.path.insert(0, "/hmvc_app")
+from hmvc.conversion import ConversionConfig, convert, encode_wav
+print("ready")
+`);
+$("run").disabled=false;$("run").textContent="Convert audio";status("Ready. Select audio files to begin.");}catch(e){status("Could not load HMVC: "+e.message);console.error(e)}}
+async function decode(file){const ctx=new AudioContext(),data=await file.arrayBuffer(),decoded=await ctx.decodeAudioData(data),frames=Math.ceil(decoded.duration*SR),offline=new OfflineAudioContext(1,frames,SR),buffer=offline.createBuffer(decoded.numberOfChannels,decoded.length,decoded.sampleRate);for(let c=0;c<decoded.numberOfChannels;c++)buffer.copyToChannel(decoded.getChannelData(c),c);const src=offline.createBufferSource();src.buffer=buffer;src.connect(offline.destination);src.start();const rendered=await offline.startRendering(),mono=rendered.getChannelData(0).slice();await ctx.close();return mono}
+function writeFloat(path,array){pyodide.FS.writeFile(path,new Uint8Array(array.buffer,array.byteOffset,array.byteLength))}
+$("run").addEventListener("click",async()=>{if(busy||!pyodide)return;const sf=$("source").files[0],tf=$("target").files[0];if(!sf){status("Choose a source audio file first.");return}busy=true;$("run").disabled=true;$("download").hidden=true;$("preview").hidden=true;progress(0);
+try{status("Decoding source…");writeFloat("/tmp/source.f32",await decode(sf));let hasTarget=false;if(tf){status("Decoding target…");writeFloat("/tmp/target.f32",await decode(tf));hasTarget=true}
+pyodide.globals.set("has_target",hasTarget);pyodide.globals.set("mode_arg",$("mode").value);pyodide.globals.set("pitch_arg",Number($("pitch").value));pyodide.globals.set("formant_arg",Number($("formant").value));pyodide.globals.set("blend_arg",Number($("blend").value)/100);
+const result=await pyodide.runPythonAsync(`
+import numpy as np
+source = np.frombuffer(open("/tmp/source.f32","rb").read(), dtype=np.float32).copy()
+target = np.frombuffer(open("/tmp/target.f32","rb").read(), dtype=np.float32).copy() if has_target else None
+def report(f, message):
+    from js import updateProgress, updateStatus
+    updateProgress(float(f)); updateStatus(str(message))
+cfg = ConversionConfig(mode=mode_arg, pitch_semitones=pitch_arg, formant_factor=formant_arg, envelope_blend=blend_arg)
+out = convert(source, target=target, config=cfg, progress=report)
+open("/tmp/output.wav","wb").write(encode_wav(out.samples))
+{"samples": int(out.samples.size), "mode": out.mode, "duration": float(out.samples.size/out.sample_rate)}
+`);
+const info=result.toJs(),wav=pyodide.FS.readFile("/tmp/output.wav"),url=URL.createObjectURL(new Blob([wav],{type:"audio/wav"}));$("preview").src=url;$("preview").hidden=false;$("download").href=url;$("download").hidden=false;progress(1);status("Done · "+info.duration.toFixed(2)+" s · "+info.mode+" mode");
+}catch(e){status("Conversion failed: "+e.message);console.error(e)}finally{$("run").disabled=false;busy=false}});
+$("clear").addEventListener("click",async()=>{if(pyodide){await pyodide.runPythonAsync("from hmvc.conversion import pipeline; pipeline.clear_cache()");status("Target retrieval cache cleared.")}});window.updateProgress=progress;window.updateStatus=status;init();
+</script></body></html>
