@@ -1,18 +1,9 @@
-"""HMVC port of the browser voice converter — behavior-parity against the original.
+"""Parity tests for the HMVC port against frozen conversion reference fixtures.
 
-The fixture ``tests/data/conversion-reference/reference.json`` holds outputs of
-the *original* DSP code (the original browser app preserved byte-for-byte at
-``tests/data/conversion-reference/reference-source/voice-converter.js``)
-re-run in Node on the fixed synthetic signals.  The port must reproduce every
-case bit-for-bit (identical float64 arrays).  If this file or the recipe
-changes, regenerate the fixture with::
-
-    node tools/generate_conversion_reference.js
-
-``tests/data/conversion-reference/signals.json`` carries the recipe SHA-256
-of ``tests/_support/conversion_signals.py``; the fixture regenerates only
-when the recipe is intentional.  The fixture is maintainer-generated and does
-not import ``hmvc``.  See ``tests/data/conversion-reference/README.md``.
+The checked-in reference data records outputs from the original implementation
+on fixed synthetic signals. The original implementation and its generator are
+not included in this repository. The Python port must reproduce the recorded
+cases bit-for-bit. See tests/data/conversion-reference/README.md.
 """
 
 from __future__ import annotations
