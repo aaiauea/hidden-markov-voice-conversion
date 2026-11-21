@@ -1,66 +1,26 @@
-# hidden-markov-voice-conversion
+# HMVC — Hidden Markov Voice Conversion
 
-HMVC's long-term goal is lightweight, CPU-friendly voice conversion.
+HMVC is a lightweight, CPU-friendly voice-conversion project built around classical signal processing. It contains a self-contained HMS synthesis-engine extraction, classical acoustic feature extraction, and a non-neural audio-to-audio conversion pipeline.
 
-- **Phase 0** extracted the existing HMS synthesis engine as a self-contained
-  foundation (`hmvc.engine`).
-- **Phase 1** adds classical, NumPy-only acoustic feature extraction for
-  audio-to-audio conversion (`hmvc.features`).
+## Current capabilities
 
-No conversion mapping, training pipeline or neural component exists yet.
+- **Conversion (hmvc.conversion):** a strict Python port of a working browser voice converter. Its pipeline combines pitch tracking and contour filling, target-frame retrieval with nearest neighbours, TD-PSOLA for the envelope-only path, and grain, smooth-vocoder, or envelope-transfer synthesis.
+- **Feature extraction (hmvc.features):** NumPy-only acoustic analysis, including mel-cepstral envelopes, F0, voicing, energy, band aperiodicity, and spectral descriptors.
+- **Synthesis engine (hmvc.engine):** the extracted HMS HMM/GMM score-driven singing synthesis engine. This is separate from the audio-to-audio conversion pipeline.
 
-## Engine foundation
+The conversion implementation is **not neural and does not use an HMM**. Target matching uses classical nearest-neighbour retrieval, and the smooth vocoder includes a small GMM-EM model. The HMS engine is not used by the conversion pipeline.
 
-The selected engine from [Hidden Markov Singer](https://github.com/aaiauea/hidden-markov-singer)
-(revision `ba1eac18146f017f8cc3cae6acdb7963b8f4149e`) now lives in
-**`hmvc.engine`**. HMS is **not** a runtime dependency: an HMS checkout or installed
-`hms` package is not needed to install, train, synthesize, or run ordinary tests.
+## Browser demo
 
-The extraction preserves HMM/GMM training and transitions, duration/pitch models,
-MLPG, GV/GM, context/pitch conditioning, model save/load, builtin/MLSA vocoders,
-and optional source-aware synthesis. Original algorithms, public class names
-(including `HMSModel`), model-format identifiers and legacy backend settings are
-retained. The current engine remains score-driven, using HMS's mel-cepstral /
-WORLD-style parameters—not an LPC/audio-to-audio conversion engine.
+A client-side demo is available at **[HMVC Web Demo](https://aaiauea.github.io/hidden-markov-voice-conversion/)**.
 
-See the [extraction and verification report](docs/hms-engine-extraction.md) for
-the exact dependency closure, transferred files, adaptations, actual test results,
-and limitations. Attribution: [third-party notices](THIRD_PARTY_NOTICES.md),
-[original MIT license](src/hmvc/engine/LICENSE.hms), and
-[per-file provenance](src/hmvc/engine/UPSTREAM.json).
+The demo runs conversion locally in the visitor's browser:
+- Audio decoding and resampling use the browser's Web Audio API.
+- HMVC's Python conversion code runs in Pyodide with NumPy.
+- The small JavaScript layer only handles browser APIs, file selection, audio buffers, progress display, and WAV download. It does not implement conversion DSP.
+- Audio is not uploaded to a conversion server.
 
-## Feature extraction (Phase 1)
-
-`hmvc.features` analyses WAV files or arrays at any common sample rate into
-separate, frame-synchronous streams:
-
-- a reconstructible, compact **mel-cepstral** representation of a CheapTrick
-  spectral envelope (the primary representation). Finite-order MCEP is an
-  approximation of the original envelope, not a lossless encoding: at the
-  16 kHz default (order 24) the envelope rebuilt with `mc2sp` differs from the
-  original by about 2.2 dB RMS log-spectral distance on speech. Use
-  `keep_envelope=True` to keep the full envelope as well;
-- **F0**, **voicing** and **periodicity**;
-- frame **energy**;
-- **band aperiodicity**;
-- **spectral descriptors** (centroid, bandwidth, rolloff, flatness, tilt,
-  ZCR, flux).
-
-Corpus normalisation is mergeable. It uses no neural model, transcript,
-WORLD/SPTK library or new dependency.
-
-```python
-from hmvc.features import AnalysisConfig, FeatureExtractor
-
-feats = FeatureExtractor(AnalysisConfig(sample_rate=16000)).extract_file("utt.wav")
-feats.mcep, feats.f0, feats.voiced, feats.energy_db, feats.band_aperiodicity
-```
-
-CLI: `python -m hmvc.features extract utt.wav utt.npz` and
-`python -m hmvc.features info utt.npz`. See the
-[feature-extraction report](docs/feature-extraction.md) for the representation
-study, the rejected alternatives, agreement with WORLD/SPTK/librosa,
-configuration, benchmarks and limitations.
+The first load downloads the Pyodide runtime, NumPy, and the Python source archive, so it can take a while and use substantial memory. The demo is experimental; long recordings may be slow on low-memory devices. Source and target audio are processed as mono at 22050 Hz. The target is limited to 150 seconds, matching the original converter's behavior.
 
 ## Install
 
@@ -69,36 +29,75 @@ python3 -m venv .venv
 .venv/bin/python -m pip install .
 ```
 
-Only **NumPy and PyYAML** are runtime requirements. There is no mandatory
-PyTorch, librosa, SciPy, soundfile, pyworld, or native WORLD dependency. The pure
-NumPy `builtin` and `mlsa` backends run without a compiler.
+Runtime dependencies are **NumPy and PyYAML**. There is no mandatory PyTorch, librosa, SciPy, soundfile, pyworld, or native WORLD dependency.
 
-## Use the existing synthesis API
+## Voice conversion API
+
+The conversion pipeline accepts mono float audio at 22050 Hz. Decode and resample audio before calling it.
 
 ```python
-from hmvc.engine.core.labels import load
-from hmvc.engine.core.model import HMSModel
-from hmvc.engine.core.synthesizer import SynthesisConfig, Synthesizer
-from hmvc.engine.data.wavio import write_wav
+from hmvc.conversion import ConversionConfig, convert, encode_wav
 
-model = HMSModel.load("path/to/model")
-score = load("path/to/score.tsv")
-result = Synthesizer(
-    model, SynthesisConfig(vocoder="builtin", seed=0)
-).synthesize(score)
-write_wav("output.wav", result.audio, model.spec.fs)  # PCM16
+result = convert(
+    source_samples,                 # mono float array, 22050 Hz
+    target=target_samples,           # optional target voice, same format
+    config=ConversionConfig(
+        mode="voc",                  # "voc", "grain", or "env"
+        pitch_semitones=0.0,
+        formant_factor=1.0,
+        envelope_blend=0.8,
+        neighbours=6,
+    ),
+)
+wav_bytes = encode_wav(result.samples)
 ```
 
-Training uses `hmvc.engine.core.trainer.Trainer` / `TrainingConfig` with labeled
-PCM WAV input and a `PhonemeSet`. No CLI, evaluation utility, recorded corpus, or
-pretrained voice is included in the installed package. Small **synthetic,
-test-only** model/oracle files verify compatibility; they are not voicebanks.
+Modes:
+- `voc`: smooth-vocoder synthesis when a usable target database is available.
+- `grain`: target-grain retrieval and resynthesis.
+- `env`: envelope transfer. If no usable target database is available, `voc` and `grain` fall back to the envelope path.
 
-Select `builtin` or `mlsa` explicitly for lightweight operation. For compatibility
-with HMS, `auto` retains optional WORLD selection/auto-build behavior; set
-`HMS_NO_AUTO_BUILD=1` to prohibit native builds/downloads. Optional backend code
-and its package-local build support are retained, but real WORLD execution has
-not been verified. WORLD/pyworld would need their own installation/license review.
+The defaults mirror the original interface. Presets and voice-range constants are exposed as `PRESETS` and `VOICE_RANGES`; see `hmvc.conversion.config`.
+
+CLI usage:
+
+```sh
+python -m hmvc conversion source.wav --target target.wav --mode voc
+```
+
+See [the conversion pipeline notes](docs/conversion.md) for processing order, parameters, module mapping, and known quality limitations. The current smooth-vocoder and envelope modes can sound buzzy or unclear; those characteristics are preserved in this strict port rather than silently redesigned.
+
+## Acoustic feature extraction
+
+hmvc.features analyses WAV files or arrays at common sample rates into frame-synchronous streams:
+- compact mel-cepstral representation of the spectral envelope;
+- F0, voicing, and periodicity;
+- frame energy and band aperiodicity;
+- spectral descriptors (centroid, bandwidth, rolloff, flatness, tilt, ZCR, and flux).
+
+Corpus normalisation is mergeable. It uses no neural model, transcript, WORLD/SPTK library, or additional runtime dependency.
+
+```python
+from hmvc.features import AnalysisConfig, FeatureExtractor
+
+feats = FeatureExtractor(AnalysisConfig(sample_rate=16000)).extract_file("utt.wav")
+feats.mcep, feats.f0, feats.voiced, feats.energy_db
+```
+
+CLI:
+
+```sh
+python -m hmvc.features extract utt.wav utt.npz
+python -m hmvc.features info utt.npz
+```
+
+See [the feature-extraction report](docs/feature-extraction.md) for representation choices, comparisons, configuration, benchmarks, and limitations.
+
+## HMS engine
+
+The selected engine from [Hidden Markov Singer](https://github.com/aaiauea/hidden-markov-singer) lives in hmvc.engine. HMS is not a runtime dependency. The extraction preserves HMM/GMM training and transitions, duration/pitch models, MLPG, GV/GM, context/pitch conditioning, model save/load, and builtin/MLSA vocoders.
+
+The engine remains score-driven; it is not the audio-to-audio converter. See the [engine extraction and verification report](docs/hms-engine-extraction.md), [third-party notices](THIRD_PARTY_NOTICES.md), [original MIT license](src/hmvc/engine/LICENSE.hms), and [per-file provenance](src/hmvc/engine/UPSTREAM.json).
 
 ## Tests
 
@@ -109,22 +108,8 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
 .venv/bin/python -B -m pytest
 ```
 
-The suite blocks imports of `hms` and heavy optional libraries, disables native
-auto-build **in tests**, ports the applicable HMS engine regressions, and compares
-actual waveforms/parameters against independently generated original-HMS
-references. No network access or original HMS repository is needed for this run.
+The suite includes engine regressions, feature-extraction checks, and conversion parity fixtures. It blocks imports of HMS and heavy optional libraries and does not require network access or the original source implementation.
 
-`tests/features/` checks the feature extractor on synthetic signals with known
-F0 and envelopes, on unusual input, and against stored outputs of WORLD, SPTK
-and librosa (`tests/data/feature-reference/`), without importing those
-libraries. `tools/generate_feature_reference.py` and `tools/evaluate_features.py`
-need them in a separate environment. `tools/benchmark_features.py` needs only
-NumPy.
+## License
 
-The port is reproducible/reviewable with the optional maintainer tool
-`tools/extract_hms_engine.py --source /separate/pinned/HMS --check`.
-`tools/generate_hms_reference.py` regenerates the synthetic baseline from original
-HMS only when explicitly requested. Neither tool is used by the installed engine.
-
-**This is an engine bootstrap plus feature extraction, not a finished HMVC
-voice-conversion system.**
+MIT. See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
