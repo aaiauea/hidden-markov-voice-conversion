@@ -2,7 +2,7 @@
 
 The fixture ``tests/data/conversion-reference/reference.json`` holds outputs of
 the *original* DSP code (the original browser app preserved byte-for-byte at
-``tests/data/conversion-reference/reference-source/voice-converter (4).html``)
+``tests/data/conversion-reference/reference-source/voice-converter.js``)
 re-run in Node on the fixed synthetic signals.  The port must reproduce every
 case bit-for-bit (identical float64 arrays).  If this file or the recipe
 changes, regenerate the fixture with::
