@@ -2,9 +2,11 @@
 /**
  * Maintainer-only tool: regenerate the HMVC conversion-reference fixture.
  *
- * Runs the ORIGINAL DSP code from ``voice-converter (4).html`` (extracted
- * verbatim, never modified) in Node on the fixed synthetic source/target in
- * ``tests/data/conversion-reference/signals.json`` and writes the outputs to
+ * Runs the ORIGINAL DSP code from the reference fixture
+ * ``tests/data/conversion-reference/reference-source/voice-converter (4).html``
+ * (the original browser app, preserved byte-for-byte; its <script> body is
+ * extracted verbatim, never modified) in Node on the fixed synthetic source/target
+ * in ``tests/data/conversion-reference/signals.json`` and writes the outputs to
  * ``tests/data/conversion-reference/reference.json``.  The HMVC port is then
  * compared against this fixture (tests/conversion/test_reference.py) without
  * needing a browser.
@@ -15,9 +17,9 @@
  * The harness:
  *   1. reads the HTML, extracts the <script> body up to the UI section,
  *   2. imports it unmodified into a function scope (the DSP code is never
- *      edited — only one instrumentation assignment inside `vocode`, which
- *      captures internal arrays immediately before its original final
- *      `return out;`, is inserted),
+ *      edited — only two instrumentation assignments inside `vocode`, which
+ *      capture internal arrays before its original final `return out;` and
+ *      right after the per-frame loop, are inserted),
  *   3. monkeypatches Math.random with a deterministic 64-bit LCG (the same
  *      constants as hmvc.conversion.rng) so the vocoder's noise is
  *      reproducible — the browser uses an unseeded Math.random, which can
@@ -33,8 +35,8 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const HTML = path.join(ROOT, "voice-converter (4).html");
 const REF_DIR = path.join(ROOT, "tests", "data", "conversion-reference");
+const HTML = path.join(REF_DIR, "reference-source", "voice-converter (4).html");
 const SIGNALS = path.join(REF_DIR, "signals.json");
 const OUTPUT = path.join(REF_DIR, "reference.json");
 
@@ -281,7 +283,7 @@ async function main() {
 
     const reference = {
         generated_by: "tools/generate_conversion_reference.js",
-        source_file: "voice-converter (4).html",
+        source_file: "tests/data/conversion-reference/reference-source/voice-converter (4).html",
         sample_rate: 22050,
         cases: {},
     };

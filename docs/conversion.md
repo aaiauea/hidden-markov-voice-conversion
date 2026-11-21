@@ -6,8 +6,10 @@ finalised once the behavioral comparison has been performed.
 
 ## 1. Source
 
-- File: `voice-converter (4).html` (temporary reference file, kept until the
-  phase is verified and finalized).
+- File: `tests/data/conversion-reference/reference-source/voice-converter (4).html`
+  (the original browser app, preserved byte-for-byte as a reference fixture;
+  its `<script>` body is extracted verbatim by `tools/generate_conversion_reference.js`
+  and never modified).
 - Browser: self-contained single-page app; no external requests. DSP runs at
   **SR = 22050 Hz**, **N = 1024** (FFT), **H = 256** (analysis hop), **HOP = 320**
   (pitch-tracking hop), **NB = 513** (spectral bins), **D = 12** (DCT features),
