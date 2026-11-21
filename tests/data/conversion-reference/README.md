@@ -1,8 +1,8 @@
 # Conversion reference fixtures (strict 1:1 port of the browser voice converter)
 
 These fixtures hold outputs of the **original** DSP code — the browser app
-`voice-converter (4).html`, preserved byte-for-byte at
-`reference-source/voice-converter (4).html` — re-run in Node on fixed synthetic
+original DSP script, extracted verbatim and stored at
+`reference-source/voice-converter.js` (HTML/UI wrapper omitted) — re-run in Node on fixed synthetic
 source/target signals.
 
 They let the HMVC NumPy port in `src/hmvc/conversion/` be checked against the
@@ -13,7 +13,7 @@ never imports `hmvc`, and the fixture is maintainer-generated.
 
 | file | contents |
 |---|---|
-| `reference-source/voice-converter (4).html` | the original browser app, preserved byte-for-byte (SHA-256 `aab0e941af4f9bf5151c34e0753d562504f2169a39d66449597e61c9f0370ab7`). Never modified in the PR; its `<script>` body is extracted verbatim by the harness and never edited. |
+| `reference-source/voice-converter.js` | original DSP JavaScript extracted verbatim from the browser app; HTML and UI are not retained. The harness adds only the documented deterministic RNG and read-only instrumentation. |
 | `signals.json` | the fixed synthetic source/target (recipe `tests/_support/conversion_signals.py`, recipe SHA-256 `29d7467697cb4dd6ab781a7ea7ac2c3c1c76b70cd1f9e3ba294fadf2be9525ac`, `signals_sha256` `7015ca983e4d4fec3298c85c8bc774c6c35f4c03085e79759d7a6499a8535514`). Source 23415 samples, target 29169 samples, 22050 Hz. |
 | `reference.json` | per-case outputs: `samples` (float32 PCM), `ratio`, `f0`, `vo`, `nfr`, `rs`, `sa`, `sv`, `sf`, `nb`, `db`, `debug`, per-case metadata and the provenance chain back to `signals.json`. |
 
@@ -52,11 +52,9 @@ conservative:
    internals can be captured for the fixture. No DSP arithmetic is changed;
    only variables are read, not written.
 
-In both cases the underlying reference algorithm is unchanged. Neither
-modification requires editing the preserved HTML — the harness slices out its
-`<script>` body at load time, patches `Math.random` after the slice, and
-inserts instrumentation at fixed markers, then evaluates the original code as
-a plain function.
+In both cases the underlying reference algorithm is unchanged. The original DSP script is stored separately from the HTML/UI wrapper. The
+harness patches `Math.random`, inserts instrumentation at fixed markers, then
+evaluates the original code as a plain function.
 
 ## Regeneration (opt-in, maintainers only)
 
@@ -98,6 +96,6 @@ python -m pytest -q
   procedurally synthesized (`tests/_support/conversion_signals.py`). Re-running
   the recipe must reproduce `signals.json` byte-for-byte.
 - `reference.json` records its own provenance (`generated_by`, `source_file`
-  pointing at the preserved HTML, per-case values, and the
+  pointing at the standalone JavaScript reference, per-case values, and the
   `signals_provenance` chain back to `signals.json`).
 - The fixtures are test-only and are not packaged.
