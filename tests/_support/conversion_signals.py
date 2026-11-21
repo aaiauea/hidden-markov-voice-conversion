@@ -1,9 +1,6 @@
-"""Synthetic source/target voices for the 1:1 conversion-port reference.
+"""Synthetic source/target signals for the conversion-port reference fixtures.
 
-The reference fixture (``tests/data/conversion-reference/``) contains outputs
-of the original ``voice-converter (4).html`` DSP code, re-run in Node on these
-fixed signals.  The recipe is NumPy-only, import-free of ``hmvc`` and
-deterministic (seeded).  Only the harness and the maintainer tool need it.
+The recipe is NumPy-only, independent of hmvc, and deterministic (seeded).
 
 The source and target are speech-like mixed utterances: silence / voiced
 vowels with gliding F0+vibrato / fricative noise / silence.  They differ
