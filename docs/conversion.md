@@ -6,7 +6,7 @@ finalised once the behavioral comparison has been performed.
 
 ## 1. Source
 
-- File: `tests/data/conversion-reference/reference-source/voice-converter (4).html`
+- File: `tests/data/conversion-reference/reference-source/voice-converter.js`
   (the original browser app, preserved byte-for-byte as a reference fixture;
   its `<script>` body is extracted verbatim by `tools/generate_conversion_reference.js`
   and never modified).
