@@ -7,7 +7,7 @@ HMVC's long-term goal is lightweight, CPU-friendly voice conversion.
 - **Phase 1** adds classical, NumPy-only acoustic feature extraction for
   audio-to-audio conversion (`hmvc.features`).
 
-No conversion mapping, training pipeline or neural component exists yet.
+The repository now also contains a strict 1:1 port of the existing classical voice converter; see [Voice conversion (Phase 1)](#voice-conversion-phase-1).
 
 ## Engine foundation
 
@@ -61,6 +61,98 @@ CLI: `python -m hmvc.features extract utt.wav utt.npz` and
 [feature-extraction report](docs/feature-extraction.md) for the representation
 study, the rejected alternatives, agreement with WORLD/SPTK/librosa,
 configuration, benchmarks and limitations.
+
+## Voice conversion (Phase 1)
+
+HMVC now includes a **classical, non-neural voice-conversion pipeline** in
+`hmvc.conversion`. Phase 1 is a strict 1:1 Python/NumPy port of the existing
+retrieval-based converter, preserving its DSP operations, ordering, parameters,
+and quirks rather than redesigning or quality-tuning them.
+
+The converter accepts source audio and an optional target-voice recording. It
+tracks pitch, optionally builds a target-frame retrieval database, analyzes
+spectral features, and synthesizes the converted signal. The three modes are:
+
+- **`voc`** — retrieval-conditioned GMM vocoder (default when a usable target
+  database is available);
+- **`grain`** — target-grain retrieval and overlap-add synthesis;
+- **`env`** — spectral-envelope transfer, also used as the fallback when no
+  usable target database is available.
+
+Pitch shifting, automatic target-pitch matching, formant adjustment, blend,
+neighbour count, voice-range presets, and named presets are configurable.
+Input WAV audio is converted to mono at **22050 Hz** internally; output is
+16-bit PCM WAV. A target recording is optional, but retrieval-based modes need
+a sufficiently long and audible target recording (at least 30 indexed frames).
+
+### CLI
+
+```sh
+python -m hmvc.conversion \
+  --src source.wav \
+  --tgt target.wav \
+  --out converted.wav \
+  --mode voc \
+  --pitch 0 \
+  --form 1.0 \
+  --blend 0.8 \
+  --neighbours 6 \
+  --range standard \
+  --progress
+```
+
+Omit `--tgt` to run without a target recording. Available modes are
+`voc`, `grain`, and `env`; voice ranges are `low`, `standard`, and
+`high`. Use `--preset` to select a built-in preset, or `--no-auto` to
+disable automatic target-pitch matching. Run
+`python -m hmvc.conversion --help` for the complete argument list.
+
+### Python API
+
+```python
+from hmvc.conversion import ConversionConfig, convert, load_audio, write_wav
+
+source = load_audio("source.wav")
+target = load_audio("target.wav")  # optional; use None to omit it
+
+config = ConversionConfig(
+    mode="voc",
+    pitch_semitones=0.0,
+    formant_factor=1.0,
+    envelope_blend=0.8,
+    neighbours=6,
+)
+
+result = convert(source, target, config)
+write_wav("converted.wav", result.samples)
+```
+
+The public API also exposes `ConversionResult`, `PRESETS`,
+`VOICE_RANGES`, and `preset_params`. See
+[the conversion pipeline and fidelity notes](docs/conversion.md) for the
+module mapping, parameters, execution order, documented discrepancies, and
+known behavior.
+
+**Important architecture distinction:** the conversion pipeline is not an HMM
+voice-conversion model. It uses classical nearest-neighbour retrieval, GMM-EM,
+and DSP synthesis. The separately extracted `hmvc.engine` is the HMS
+score-driven HMM/GMM singing-synthesis engine; it is not currently used by
+`hmvc.conversion`. The feature extractor in `hmvc.features` is also a
+separate component, not a learned conversion mapper.
+
+### Current limitations
+
+- This is a faithful baseline port, **not a quality-improved or production-ready
+  voice-conversion system**. The original envelope, grain, and vocoder artifacts
+  are intentionally preserved.
+- The parity suite checks deterministic synthetic cases against frozen
+  reference outputs. That verifies implementation fidelity for those cases;
+  it does not establish perceptual quality, generalization across speakers, or
+  performance on a broad real-world evaluation corpus.
+- There is no neural conversion model, speaker-embedding system, or trained
+  multilingual model.
+- The extracted HMS engine, feature-extraction component, and conversion
+  pipeline are currently separate subsystems.
 
 ## Install
 
@@ -126,5 +218,4 @@ The port is reproducible/reviewable with the optional maintainer tool
 `tools/generate_hms_reference.py` regenerates the synthetic baseline from original
 HMS only when explicitly requested. Neither tool is used by the installed engine.
 
-**This is an engine bootstrap plus feature extraction, not a finished HMVC
-voice-conversion system.**
+**HMVC currently combines an extracted singing-synthesis engine, classical acoustic feature extraction, and a faithful baseline voice-conversion port. These are distinct components; the project is not yet a unified or quality-optimized voice-conversion system.**
